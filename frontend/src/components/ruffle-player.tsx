@@ -35,19 +35,28 @@ const RufflePlayerComponent: React.FC<RufflePlayerProps> = ({
           });
         }
 
-        // Initialize Ruffle player
-        if (containerRef.current) {
-          const ruffle = window.RufflePlayer.newest();
-          const player = ruffle.createPlayer();
-          player.style.width = `${width}px`;
-          player.style.height = `${height}px`;
-          containerRef.current.appendChild(player);
-          playerRef.current = player;
-
-          // Load the SWF file
-          await player.load(swfUrl);
-          onLoad?.();
+        if (!containerRef.current) {
+          return;
         }
+
+        // Initialize Ruffle player
+        const ruffle = window.RufflePlayer.newest();
+        const player = ruffle.createPlayer();
+
+        player.style.width = `${width}px`;
+        player.style.height = `${height}px`;
+
+        if (containerRef.current.firstChild) {
+          console.log("Container already has a child, removing...");
+          containerRef.current.firstChild.remove();
+        }
+
+        containerRef.current.appendChild(player);
+        playerRef.current = player;
+
+        // Load the SWF file
+        await player.load(swfUrl);
+        onLoad?.();
       } catch (error) {
         console.error("Error loading Ruffle or SWF:", error);
         onError?.(
@@ -69,7 +78,7 @@ const RufflePlayerComponent: React.FC<RufflePlayerProps> = ({
     };
   }, [swfUrl, width, height, onLoad, onError]);
 
-  return <div ref={containerRef} />;
+  return <div id="ruffle-container" ref={containerRef} />;
 };
 
 export default RufflePlayerComponent;
