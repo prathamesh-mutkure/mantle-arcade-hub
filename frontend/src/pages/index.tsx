@@ -4,6 +4,7 @@ import TypeScriptLogo from "@/components/logos/typescript";
 import { useWalletStore } from "@/providers/walletStoreProvider";
 import { ArrowRight } from "lucide-react";
 import { Inter } from "next/font/google";
+import RufflePlayer from "@/components/ruffle-player";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -140,6 +141,14 @@ export default function Home() {
             src/pages/index.tsx
           </code>
         </p>
+
+        <RufflePlayer
+          swfUrl="/games/POKER-FACE-UP.swf"
+          width={800}
+          height={600}
+          onLoad={() => console.log("SWF loaded")}
+          onError={() => console.log("Error loading SWF")}
+        />
       </div>
     </main>
   );

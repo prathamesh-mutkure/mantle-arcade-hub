@@ -1,6 +1,6 @@
 export {};
 
-interface RufflePlayer extends HTMLElement {
+export interface RufflePlayer extends HTMLElement {
   load(url: string): Promise<void>;
   play(): void;
   pause(): void;
