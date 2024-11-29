@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import GameCard from "./game-card";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
+import { Router, useRouter } from "next/router";
 
 const sampleGames: Game[] = Array(10).fill({
+  id: 1,
   name: "4 Table Poker",
   poster: "https://image.tmdb.org/t/p/w500//2cxhvwyEwRlysAmRH4iodkvo0z5.jpg",
   flashFile: "/games/POKER-FACE-UP.swf",
@@ -10,6 +12,8 @@ const sampleGames: Game[] = Array(10).fill({
 });
 
 function GameRow({ rowId, title }: { rowId: number; title: string }) {
+  const router = useRouter();
+
   const [games, setGames] = useState<Game[]>(sampleGames);
   const [trailerUrl, setTrailerUrl] = useState("");
 
@@ -24,7 +28,9 @@ function GameRow({ rowId, title }: { rowId: number; title: string }) {
     slider && (slider.scrollLeft = slider.scrollLeft + 500);
   };
 
-  const handleClick = (item: Game) => {};
+  const handleClick = (item: Game) => {
+    router.push(`/game?id=${item.id}}`);
+  };
 
   return (
     <>
