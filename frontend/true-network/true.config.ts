@@ -26,6 +26,6 @@ export const config: TrueConfig = {
   algorithm: {
     id: undefined,
     path: undefined,
-    schemas: [],
+    schemas: []
   },
 };
