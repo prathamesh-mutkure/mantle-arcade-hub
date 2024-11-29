@@ -6,6 +6,7 @@ import type { BaseWallet } from "@polkadot-onboard/core";
 import { ExternalLink } from "lucide-react";
 import { extensionConfig } from "@/configs/extensionConnectConfig";
 import { type ChainConfig, chainsConfig } from "@/configs/chainsConfig";
+import Link from "next/link";
 
 const WalletModal: React.FC<{
   isOpen: boolean;
@@ -210,7 +211,13 @@ const Header: React.FC = () => {
 
   return (
     <header className="bg-transparent text-white p-4 flex justify-between items-center">
-      <h1 className="text-2xl font-bold">DotCade</h1>
+      {/* <h1 className="text-2xl font-bold">DotCade</h1> */}
+
+      <Link href="/">
+        <h1 className="text-red-600 text-4xl font-bold cursor-pointer uppercase">
+          Dot.Cade
+        </h1>
+      </Link>
 
       <div className="flex items-center space-x-4">
         {connectedWallet?.isConnected && connectedAccount ? (
