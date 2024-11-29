@@ -42,9 +42,10 @@ const useGameStore = create<GameStore>((set) => ({
           : state.selectedGame,
     })),
 
+  // TODO: ID type
   selectGame: (id) =>
     set((state) => ({
-      selectedGame: state.games.find((game) => game.id === id) || null,
+      selectedGame: state.games.find((game) => game.id == id) || null,
     })),
 
   clearSelectedGame: () =>

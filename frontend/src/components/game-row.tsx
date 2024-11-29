@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import GameCard from "./game-card";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
 import useGameStore from "@/zustand/games-store";
 
 function GameRow({ rowId, title }: { rowId: number; title: string }) {
@@ -22,7 +22,7 @@ function GameRow({ rowId, title }: { rowId: number; title: string }) {
   };
 
   const handleClick = (item: Game) => {
-    router.push(`/game?id=${item.id}}`);
+    router.push(`/game?id=${item.id}`);
   };
 
   return (
