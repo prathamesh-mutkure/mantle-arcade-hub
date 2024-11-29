@@ -1,14 +1,6 @@
 import React from "react";
 
 const Main = () => {
-  const truncateString = (str: string, num: number) => {
-    if (str?.length > num) {
-      return str.slice(0, num) + "...";
-    } else {
-      return str;
-    }
-  };
-
   return (
     <div className="w-full h-[550px] text-white">
       <div className="w-full h-full">
