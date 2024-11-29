@@ -5,6 +5,7 @@ import { useWalletStore } from "@/providers/walletStoreProvider";
 import { ArrowRight } from "lucide-react";
 import { Inter } from "next/font/google";
 import RufflePlayer from "@/components/ruffle-player";
+import GameRow from "@/components/game-row";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -161,6 +162,8 @@ export default function Home() {
           onLoad={() => console.log("SWF loaded")}
           onError={() => console.log("Error loading SWF")}
         />
+
+        <GameRow title="Trending Now" rowId={1} />
       </div>
     </main>
   );
