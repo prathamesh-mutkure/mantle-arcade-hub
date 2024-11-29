@@ -1,3 +1,4 @@
+import { sampleGames } from "@/lib/data";
 import { create } from "zustand";
 
 export type GameState = {
@@ -16,7 +17,7 @@ export type GameActions = {
 export type GameStore = GameState & GameActions;
 
 const useGameStore = create<GameStore>((set) => ({
-  games: [],
+  games: [...sampleGames],
   selectedGame: null,
 
   addGame: (game) =>

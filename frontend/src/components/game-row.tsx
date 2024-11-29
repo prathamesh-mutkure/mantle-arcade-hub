@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import GameCard from "./game-card";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { Router, useRouter } from "next/router";
-import { sampleGames } from "@/lib/data";
+import useGameStore from "@/zustand/games-store";
 
 function GameRow({ rowId, title }: { rowId: number; title: string }) {
   const router = useRouter();
 
-  const [games, setGames] = useState<Game[]>(sampleGames);
+  const games = useGameStore((state) => state.games);
   const [trailerUrl, setTrailerUrl] = useState("");
 
   const slideLeft = () => {
