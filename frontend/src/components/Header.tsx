@@ -36,6 +36,7 @@ const WalletModal: React.FC<{
       <div className="bg-white rounded-lg p-6 w-full max-w-md relative">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-2xl font-bold text-gray-800">Select a Wallet</h2>
+
           <button
             type="button"
             onClick={onClose}
@@ -45,6 +46,7 @@ const WalletModal: React.FC<{
             <X size={24} />
           </button>
         </div>
+
         <div className="grid grid-cols-2 gap-4">
           {allWallets?.map((wallet) => {
             const isInstalled = installedWallets.has(wallet.title);
@@ -97,6 +99,7 @@ const WalletModal: React.FC<{
             );
           })}
         </div>
+
         {walletConnect && (
           <div className="mt-6 pt-6 border-t">
             <h3 className="text-lg font-semibold mb-4 text-center text-black">
@@ -206,8 +209,9 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="bg-purple-900 text-white p-4 flex justify-between items-center">
-      <h1 className="text-2xl font-bold">create-polka-dapp</h1>
+    <header className="bg-transparent text-white p-4 flex justify-between items-center">
+      <h1 className="text-2xl font-bold">DotCade</h1>
+
       <div className="flex items-center space-x-4">
         {connectedWallet?.isConnected && connectedAccount ? (
           <>
@@ -215,7 +219,7 @@ const Header: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setShowChains(!showChains)}
-                className="bg-purple-700 hover:bg-purple-600 px-4 py-2 rounded-lg flex items-center space-x-2 transition duration-200"
+                className="bg-red-600 px-6 py-2 rounded cursor-pointer text-white flex items-center space-x-2 transition duration-200"
                 disabled={isChangingChain}
               >
                 <img
@@ -224,13 +228,16 @@ const Header: React.FC = () => {
                   width={24}
                   height={24}
                 />
+
                 <span>{currentChain?.name || "Polkadot"}</span>
+
                 {isChangingChain ? (
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white" />
                 ) : (
                   <ChevronDown size={16} />
                 )}
               </button>
+
               {showChains && !isChangingChain && (
                 <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
                   <div className="py-1" role="menu">
@@ -256,11 +263,12 @@ const Header: React.FC = () => {
                 </div>
               )}
             </div>
+
             <div className="relative">
               <button
                 type="button"
                 onClick={toggleAccounts}
-                className="bg-purple-700 hover:bg-purple-600 px-4 py-2 rounded-lg flex items-center space-x-2 transition duration-200"
+                className="bg-red-600 px-6 py-2 rounded cursor-pointer text-white flex items-center space-x-2 transition duration-200"
               >
                 {connectedWallet?.metadata?.iconUrl && (
                   <img
@@ -314,13 +322,14 @@ const Header: React.FC = () => {
           <button
             type="button"
             onClick={toggleWalletModal}
-            className="bg-purple-700 hover:bg-purple-600 px-4 py-2 rounded-lg flex items-center space-x-2 transition duration-200"
+            className="bg-red-600 px-6 py-2 rounded cursor-pointer text-white flex items-center space-x-2 transition duration-200"
           >
             <Wallet size={16} />
             <span>Connect Wallet</span>
           </button>
         )}
       </div>
+
       <WalletModal
         isOpen={showWalletModal}
         onClose={() => !isConnecting && setShowWalletModal(false)}

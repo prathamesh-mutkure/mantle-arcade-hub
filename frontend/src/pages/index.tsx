@@ -103,7 +103,7 @@ export default function Home() {
 
   return (
     <main
-      className={`${inter.className} min-h-screen bg-gradient-to-b from-purple-900 to-purple-700 text-white py-12 px-4`}
+      className={`${inter.className} min-h-screen bg-gradient-to-b text-white py-12 px-4`}
     >
       <div className="max-w-4xl mx-auto">
         <div className="flex justify-center items-center space-x-6 mb-12">
