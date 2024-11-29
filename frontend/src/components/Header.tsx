@@ -210,9 +210,7 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="bg-transparent text-white p-4 flex justify-between items-center">
-      {/* <h1 className="text-2xl font-bold">DotCade</h1> */}
-
+    <div className="flex justify-between items-center bg-transparent text-white p-4 w-full pb-0 z-[100] absolute">
       <Link href="/">
         <h1 className="text-red-600 text-4xl font-bold cursor-pointer uppercase">
           Dot.Cade
@@ -345,7 +343,7 @@ const Header: React.FC = () => {
         isConnecting={isConnecting}
         connectingWallet={connectingWallet}
       />
-    </header>
+    </div>
   );
 };
 
