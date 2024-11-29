@@ -1,6 +1,7 @@
 import type { Account, BaseWallet } from "@polkadot-onboard/core";
 import { createStore } from "zustand/vanilla";
 import { ApiPromise, WsProvider } from "@polkadot/api";
+import { decodeAddress, encodeAddress } from "@polkadot/util-crypto";
 import {
   type ChainConfig,
   chainsConfig,
@@ -35,6 +36,8 @@ export const defaultInitState: WalletState = {
   currentChain: null,
 };
 
+const DEFAULT_CHAIN = chainsConfig[0];
+
 export const createWalletStore = (
   initState: WalletState = defaultInitState
 ) => {
@@ -44,7 +47,6 @@ export const createWalletStore = (
       try {
         await wallet.connect();
         const account = await wallet.getAccounts();
-        const DEFAULT_CHAIN = chainsConfig[0];
         const WS_PROVIDER = DEFAULT_CHAIN.wsUrl;
         const provider = new WsProvider(WS_PROVIDER);
         const api = await ApiPromise.create({ provider });
@@ -71,7 +73,16 @@ export const createWalletStore = (
     },
     connectAccount: async (account: Account) => {
       try {
-        set({ connectedAccount: account });
+        const chain = initState.currentChain || DEFAULT_CHAIN;
+        set({
+          connectedAccount: {
+            ...account,
+            address: encodeAddress(
+              decodeAddress(account.address),
+              chain.prefix
+            ),
+          },
+        });
       } catch (error) {
         console.log(error);
       }
