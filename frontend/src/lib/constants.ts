@@ -1,0 +1,1 @@
+export const TRUE_NETWORK_SECRET_KEY = process.env.TRUE_NETWORK_SECRET_KEY!;
