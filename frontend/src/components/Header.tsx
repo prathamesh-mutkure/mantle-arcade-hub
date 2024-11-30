@@ -185,6 +185,9 @@ const Header: React.FC = () => {
     async (wallet: BaseWallet) => {
       setIsConnecting(true);
       setConnectingWallet(wallet.metadata.title);
+
+      localStorage.setItem("selectedWallet", JSON.stringify(wallet.metadata));
+
       try {
         await connectWallet(wallet);
         const walletAccounts = await wallet.getAccounts();
