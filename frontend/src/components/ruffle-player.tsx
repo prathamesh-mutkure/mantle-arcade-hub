@@ -6,7 +6,8 @@ interface RufflePlayerProps {
   swfUrl: string;
   width?: number;
   height?: number;
-  onLoad?: () => void;
+  onStart?: () => void;
+  onEnd?: () => void;
   onError?: (error: Error) => void;
 }
 
@@ -14,7 +15,8 @@ const RufflePlayerComponent: React.FC<RufflePlayerProps> = ({
   swfUrl,
   width = 800,
   height = 600,
-  onLoad,
+  onStart,
+  onEnd,
   onError,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -56,7 +58,7 @@ const RufflePlayerComponent: React.FC<RufflePlayerProps> = ({
 
         // Load the SWF file
         await player.load(swfUrl);
-        onLoad?.();
+        onStart?.();
       } catch (error) {
         console.error("Error loading Ruffle or SWF:", error);
         onError?.(
@@ -75,8 +77,10 @@ const RufflePlayerComponent: React.FC<RufflePlayerProps> = ({
         playerRef.current.remove();
         playerRef.current = null;
       }
+
+      onEnd?.();
     };
-  }, [swfUrl, width, height, onLoad, onError]);
+  }, [swfUrl, width, height, onStart, onError]);
 
   return <div id="ruffle-container" ref={containerRef} />;
 };
