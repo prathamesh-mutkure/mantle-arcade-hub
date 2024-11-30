@@ -31,7 +31,7 @@ const RufflePlayerComponent: React.FC<RufflePlayerProps> = ({
   const playerRef = useRef<RufflePlayer | null>(null);
 
   const isGameActiveRef = useRef(false);
-  const [metrics, setMetrics] = useState<TGameMetrics>({
+  const metricsRef = useRef<TGameMetrics>({
     startTime: null,
     endTime: null,
     keystrokes: 0,
@@ -107,14 +107,14 @@ const RufflePlayerComponent: React.FC<RufflePlayerProps> = ({
 
     isGameActiveRef.current = true;
 
-    setMetrics((prev) => ({
-      ...prev,
+    metricsRef.current = {
+      ...metricsRef.current,
       startTime: new Date(),
       endTime: null,
       keystrokes: 0,
       mouseClicks: 0,
       totalPlayTime: 0,
-    }));
+    };
 
     console.log("isGameActive is now", isGameActiveRef.current);
   }
@@ -126,19 +126,9 @@ const RufflePlayerComponent: React.FC<RufflePlayerProps> = ({
 
     isGameActiveRef.current = false;
 
-    const finalMetrics = calculateFinalMetrics(metrics);
-    console.log("Sending final metrics:", finalMetrics);
-
+    const finalMetrics = calculateFinalMetrics(metricsRef.current);
+    metricsRef.current = finalMetrics;
     sendMetricsToBackend(finalMetrics);
-    setMetrics(finalMetrics);
-
-    // setMetrics((prev) => {
-    //   const finalMetrics = calculateFinalMetrics(prev);
-
-    //   sendMetricsToBackend(finalMetrics);
-
-    //   return finalMetrics;
-    // });
   }
 
   function handleError(error: Error) {
@@ -149,13 +139,19 @@ const RufflePlayerComponent: React.FC<RufflePlayerProps> = ({
   function handleKeyPress() {
     if (!isGameActiveRef.current) return;
 
-    setMetrics((prev) => ({ ...prev, keystrokes: prev.keystrokes + 1 }));
+    metricsRef.current = {
+      ...metricsRef.current,
+      keystrokes: metricsRef.current.keystrokes + 1,
+    };
   }
 
   function handleMouseClick() {
     if (!isGameActiveRef.current) return;
 
-    setMetrics((prev) => ({ ...prev, mouseClicks: prev.mouseClicks + 1 }));
+    metricsRef.current = {
+      ...metricsRef.current,
+      mouseClicks: metricsRef.current.mouseClicks + 1,
+    };
   }
 
   async function sendMetricsToBackend(gameMetrics: TGameMetrics) {
@@ -163,6 +159,8 @@ const RufflePlayerComponent: React.FC<RufflePlayerProps> = ({
   }
 
   function calculateFinalMetrics(prevMetrics: TGameMetrics): TGameMetrics {
+    console.log("prevMetrics: ", prevMetrics);
+
     const endTime = dayjs(new Date());
     const startTime = dayjs(prevMetrics.startTime ?? endTime);
     const diff = endTime.diff(startTime, "seconds");
