@@ -5,7 +5,13 @@ import { useRouter } from "next/router";
 import useGameStore from "@/zustand/games-store";
 import dayjs from "dayjs";
 
-const inter = Inter({ subsets: ["latin"] });
+type TGameMetrics = {
+  startTime: Date | null;
+  endTime: Date | null;
+  keystrokes: number;
+  mouseClicks: number;
+  totalPlayTime: number;
+};
 
 export default function GamePage() {
   const router = useRouter();
@@ -14,13 +20,7 @@ export default function GamePage() {
   const { selectGame, selectedGame } = useGameStore((state) => state);
 
   const [isGameActive, setIsGameActive] = useState(false);
-  const [metrics, setMetrics] = useState<{
-    startTime: Date | null;
-    endTime: Date | null;
-    keystrokes: number;
-    mouseClicks: number;
-    totalPlayTime: number;
-  }>({
+  const [metrics, setMetrics] = useState<TGameMetrics>({
     startTime: null,
     endTime: null,
     keystrokes: 0,
@@ -34,8 +34,10 @@ export default function GamePage() {
     }
   }, [gameId]);
 
-  const handleGameStart = () => {
+  function handleGameStart() {
     if (isGameActive) return;
+
+    console.log("Game started");
 
     setMetrics((prev) => ({
       ...prev,
@@ -47,40 +49,76 @@ export default function GamePage() {
     }));
 
     setIsGameActive(true);
-  };
+  }
 
-  const handleGameEnd = () => {
+  function handleGameEnd() {
+    console.log("helo", isGameActive);
+
     if (!isGameActive) return;
 
+    console.log("Game ended");
+
+    const endTime = dayjs(new Date());
+
     setMetrics((prev) => {
-      const endTime = dayjs();
-      const startTime = dayjs(metrics.startTime ?? endTime);
+      const startTime = dayjs(prev.startTime ?? endTime);
 
       const diff = endTime.diff(startTime, "seconds");
 
-      return {
+      console.log("endTime: ");
+      console.log(endTime);
+      console.log(endTime.toDate());
+
+      const data = {
         ...prev,
         endTime: endTime.toDate(),
         totalPlayTime: diff,
       };
-    });
-  };
 
-  const handleError = (error: Error) => {
+      // sendMetricsToBackend(data);
+
+      return data;
+    });
+
+    console.log("Metrics: ", metrics);
+
+    sendMetricsToBackend(metrics);
+  }
+
+  function handleError(error: Error) {
     console.error("Error loading SWF: ", error);
     handleGameEnd();
-  };
+  }
 
-  const handleKeyPress = () => {
+  function handleKeyPress() {
     if (!isGameActive) return;
 
     setMetrics((prev) => ({ ...prev, keystrokes: prev.keystrokes + 1 }));
-  };
+  }
 
-  const handleMouseClick = () => {
+  function handleMouseClick() {
     if (!isGameActive) return;
 
     setMetrics((prev) => ({ ...prev, mouseClicks: prev.mouseClicks + 1 }));
+  }
+
+  const sendMetricsToBackend = async (gameMetrics: TGameMetrics) => {
+    console.log("Sending metrics to backend: ", gameMetrics);
+
+    // try {
+    //   await fetch("/api/true/attest", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //       ...gameMetrics,
+    //       gameId: selectedGame?.id!,
+    //     }),
+    //   });
+    // } catch (error) {
+    //   console.error("Failed to send metrics:", error);
+    // }
   };
 
   if (!gameId) {
@@ -89,7 +127,7 @@ export default function GamePage() {
 
   return (
     <main
-      className={`${inter.className} min-h-screen flex items-center justify-center text-white py-12 px-4`}
+      className={`min-h-screen flex items-center justify-center text-white py-12 px-4`}
     >
       <div className="w-full flex items-center justify-center">
         {selectedGame && (
@@ -97,9 +135,9 @@ export default function GamePage() {
             swfUrl={selectedGame.flashFile}
             width={800}
             height={600}
-            onStart={handleGameStart}
-            onEnd={handleGameEnd}
-            onError={handleError}
+            // onStart={handleGameStart}
+            // onEnd={handleGameEnd}
+            // onError={handleError}
           />
         )}
       </div>

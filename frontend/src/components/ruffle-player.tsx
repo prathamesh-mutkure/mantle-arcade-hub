@@ -1,6 +1,6 @@
-// components/RufflePlayer.tsx
 import { RufflePlayer } from "@/types/ruffle";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import dayjs from "dayjs";
 
 interface RufflePlayerProps {
   swfUrl: string;
@@ -10,6 +10,14 @@ interface RufflePlayerProps {
   onEnd?: () => void;
   onError?: (error: Error) => void;
 }
+
+type TGameMetrics = {
+  startTime: Date | null;
+  endTime: Date | null;
+  keystrokes: number;
+  mouseClicks: number;
+  totalPlayTime: number;
+};
 
 const RufflePlayerComponent: React.FC<RufflePlayerProps> = ({
   swfUrl,
@@ -21,6 +29,15 @@ const RufflePlayerComponent: React.FC<RufflePlayerProps> = ({
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const playerRef = useRef<RufflePlayer | null>(null);
+
+  const isGameActiveRef = useRef(false);
+  const [metrics, setMetrics] = useState<TGameMetrics>({
+    startTime: null,
+    endTime: null,
+    keystrokes: 0,
+    mouseClicks: 0,
+    totalPlayTime: 0,
+  });
 
   useEffect(() => {
     const loadRuffle = async () => {
@@ -58,10 +75,11 @@ const RufflePlayerComponent: React.FC<RufflePlayerProps> = ({
 
         // Load the SWF file
         await player.load(swfUrl);
-        onStart?.();
+        console.log("SWF loaded");
+        handleGameStart();
       } catch (error) {
         console.error("Error loading Ruffle or SWF:", error);
-        onError?.(
+        handleError(
           error instanceof Error
             ? error
             : new Error("Failed to load Ruffle player")
@@ -78,9 +96,83 @@ const RufflePlayerComponent: React.FC<RufflePlayerProps> = ({
         playerRef.current = null;
       }
 
-      onEnd?.();
+      handleGameEnd();
     };
-  }, [swfUrl, width, height, onStart, onError]);
+  }, []);
+
+  function handleGameStart() {
+    console.log("handleGameStart, isGameActive is", isGameActiveRef.current);
+
+    if (isGameActiveRef.current) return;
+
+    isGameActiveRef.current = true;
+
+    setMetrics((prev) => ({
+      ...prev,
+      startTime: new Date(),
+      endTime: null,
+      keystrokes: 0,
+      mouseClicks: 0,
+      totalPlayTime: 0,
+    }));
+
+    console.log("isGameActive is now", isGameActiveRef.current);
+  }
+
+  function handleGameEnd() {
+    console.log("handleGameEnd, isGameActive is", isGameActiveRef.current);
+
+    if (!isGameActiveRef.current) return;
+
+    isGameActiveRef.current = false;
+
+    const finalMetrics = calculateFinalMetrics(metrics);
+    console.log("Sending final metrics:", finalMetrics);
+
+    sendMetricsToBackend(finalMetrics);
+    setMetrics(finalMetrics);
+
+    // setMetrics((prev) => {
+    //   const finalMetrics = calculateFinalMetrics(prev);
+
+    //   sendMetricsToBackend(finalMetrics);
+
+    //   return finalMetrics;
+    // });
+  }
+
+  function handleError(error: Error) {
+    console.error("Error loading SWF: ", error);
+    handleGameEnd();
+  }
+
+  function handleKeyPress() {
+    if (!isGameActiveRef.current) return;
+
+    setMetrics((prev) => ({ ...prev, keystrokes: prev.keystrokes + 1 }));
+  }
+
+  function handleMouseClick() {
+    if (!isGameActiveRef.current) return;
+
+    setMetrics((prev) => ({ ...prev, mouseClicks: prev.mouseClicks + 1 }));
+  }
+
+  async function sendMetricsToBackend(gameMetrics: TGameMetrics) {
+    console.log("Sending metrics to backend: ", gameMetrics);
+  }
+
+  function calculateFinalMetrics(prevMetrics: TGameMetrics): TGameMetrics {
+    const endTime = dayjs(new Date());
+    const startTime = dayjs(prevMetrics.startTime ?? endTime);
+    const diff = endTime.diff(startTime, "seconds");
+
+    return {
+      ...prevMetrics,
+      endTime: endTime.toDate(),
+      totalPlayTime: diff,
+    };
+  }
 
   return <div id="ruffle-container" ref={containerRef} />;
 };
