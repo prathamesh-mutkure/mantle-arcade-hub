@@ -40,10 +40,11 @@ export const chainsConfig: ChainConfig[] = [
   },
   {
     name: "Kilt",
+    // TODO: Add RPC
     rpcUrl: "",
     wsUrl: "wss://peregrine.kilt.io",
     logo: "/images/kilt-icon.svg",
-    prefix: 8,
+    prefix: 38,
   },
   // Add more chains as needed
 ];

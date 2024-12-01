@@ -81,8 +81,8 @@ export const extensionConfig: ExtensionConfiguration = {
       iconUrl: "/images/subwallet-icon.svg",
     },
     {
-      id: "sporran",
-      title: "Sporran Test Wallet",
+      id: "Sporran",
+      title: "Sporran",
       description: "Spooran Test Wallet",
       urls: {
         main: "https://www.sporran.org/",
@@ -92,7 +92,7 @@ export const extensionConfig: ExtensionConfiguration = {
           firefox: "https://addons.mozilla.org/firefox/addon/sporran/",
         },
       },
-      iconUrl: "/images/kilt-icon.svg",
+      iconUrl: "/images/spooran-icon.svg",
     },
   ],
 };
