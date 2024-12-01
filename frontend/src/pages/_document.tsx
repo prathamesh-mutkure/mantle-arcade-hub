@@ -5,11 +5,11 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head />
+      <GoogleAnalytics gaId="G-9SSE6ELV91" />
+
       <body className="antialiased">
         <Main />
         <NextScript />
-
-        <GoogleAnalytics gaId="G-9SSE6ELV91" />
       </body>
     </Html>
   );
