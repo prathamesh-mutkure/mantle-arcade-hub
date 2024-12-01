@@ -1,5 +1,14 @@
 const games: Game[] = [
   {
+    id: "6",
+    name: "Flabby Physics",
+    poster: "/games_images/flappy_physics.png",
+    flashFile: "/games/flabby_physics.swf",
+    description: "Test your luck and skill in this poker game.",
+    featured: true,
+    categories: ["casino", "arcade"],
+  },
+  {
     id: "0",
     name: "4 Table Poker",
     poster: "/games_images/poker.png",
@@ -9,17 +18,8 @@ const games: Game[] = [
     categories: ["casino", "featured"],
   },
   {
-    id: "6",
-    name: "flabby_physics",
-    poster: "/games_images/flappy_physics.png",
-    flashFile: "/games/flabby_physics.swf",
-    description: "Test your luck and skill in this poker game.",
-    featured: true,
-    categories: ["casino", "arcade"],
-  },
-  {
     id: "10",
-    name: "racewalk",
+    name: "Race Walk",
     poster: "/games_images/racewalk.png",
     flashFile: "/games/racewalk.swf",
     description: "Test your luck and skill in this poker game.",
@@ -27,7 +27,7 @@ const games: Game[] = [
   },
   {
     id: "13",
-    name: "Age_of_War",
+    name: "Age of War",
     poster: "/games_images/age_of_war.png",
     flashFile: "/games/Age_of_War.swf",
     description: "Test your luck and skill in this poker game.",
@@ -35,7 +35,7 @@ const games: Game[] = [
   },
   {
     id: "14",
-    name: "Dice-Wars",
+    name: "Dice Wars",
     poster: "/games_images/dice_wars.png",
     flashFile: "/games/Dice-Wars.swf",
     description: "Test your luck and skill in this poker game.",

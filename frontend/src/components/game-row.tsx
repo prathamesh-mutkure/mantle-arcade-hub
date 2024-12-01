@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import GameCard from "./game-card";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { useRouter } from "next/router";
-import useGameStore from "@/zustand/games-store";
 
 function GameRow({
   rowId,
