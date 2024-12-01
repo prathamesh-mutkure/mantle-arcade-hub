@@ -38,6 +38,13 @@ export const chainsConfig: ChainConfig[] = [
     logo: "/images/polkadot-logo.svg",
     prefix: 7,
   },
+  {
+    name: "Kilt",
+    rpcUrl: "",
+    wsUrl: "wss://peregrine.kilt.io",
+    logo: "/images/kilt-icon.svg",
+    prefix: 8,
+  },
   // Add more chains as needed
 ];
 

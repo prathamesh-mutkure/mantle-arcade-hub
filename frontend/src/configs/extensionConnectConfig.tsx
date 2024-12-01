@@ -80,5 +80,19 @@ export const extensionConfig: ExtensionConfiguration = {
       },
       iconUrl: "/images/subwallet-icon.svg",
     },
+    {
+      id: "sporran",
+      title: "Sporran Test Wallet",
+      description: "Spooran Test Wallet",
+      urls: {
+        main: "https://www.sporran.org/",
+        browsers: {
+          chrome:
+            "https://chrome.google.com/webstore/detail/djdnajgjcbjhhbdblkegbcgodlkkfhcl",
+          firefox: "https://addons.mozilla.org/firefox/addon/sporran/",
+        },
+      },
+      iconUrl: "/images/kilt-icon.svg",
+    },
   ],
 };
