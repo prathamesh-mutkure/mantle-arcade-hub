@@ -4,10 +4,17 @@ import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { useRouter } from "next/router";
 import useGameStore from "@/zustand/games-store";
 
-function GameRow({ rowId, title }: { rowId: number; title: string }) {
+function GameRow({
+  rowId,
+  title,
+  games,
+}: {
+  rowId: string;
+  title: string;
+  games: Game[];
+}) {
   const router = useRouter();
 
-  const games = useGameStore((state) => state.games);
   const [trailerUrl, setTrailerUrl] = useState("");
 
   const slideLeft = () => {
