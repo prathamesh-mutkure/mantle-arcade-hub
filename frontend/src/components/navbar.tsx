@@ -27,7 +27,11 @@ function Navbar() {
         <div className="flex flex-row justify-between">
           <Link to="/account">
             <button className="text-white pr-4">
-              <img className="w-[60px] h-[60px]" src={avatar} alt="Account" />
+              <img
+                className="w-[60px] h-[60px]"
+                src="/images/Netflix-avatar.png"
+                alt="Account"
+              />
             </button>
           </Link>
 
