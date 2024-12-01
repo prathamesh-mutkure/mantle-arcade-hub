@@ -2,7 +2,7 @@ const games: Game[] = [
   {
     id: "0",
     name: "4 Table Poker",
-    poster: "https://image.tmdb.org/t/p/w500//2cxhvwyEwRlysAmRH4iodkvo0z5.jpg",
+    poster: "/games_images/poker.png",
     flashFile: "/games/POKER-FACE-UP.swf",
     description: "Test your luck and skill in this poker game.",
     featured: true,
@@ -11,7 +11,7 @@ const games: Game[] = [
   {
     id: "6",
     name: "flabby_physics",
-    poster: "https://image.tmdb.org/t/p/w500//2cxhvwyEwRlysAmRH4iodkvo0z5.jpg",
+    poster: "/games_images/flappy_physics.png",
     flashFile: "/games/flabby_physics.swf",
     description: "Test your luck and skill in this poker game.",
     featured: true,
@@ -20,7 +20,7 @@ const games: Game[] = [
   {
     id: "10",
     name: "racewalk",
-    poster: "https://image.tmdb.org/t/p/w500//2cxhvwyEwRlysAmRH4iodkvo0z5.jpg",
+    poster: "/games_images/racewalk.png",
     flashFile: "/games/racewalk.swf",
     description: "Test your luck and skill in this poker game.",
     categories: ["racing"],
@@ -28,7 +28,7 @@ const games: Game[] = [
   {
     id: "13",
     name: "Age_of_War",
-    poster: "https://image.tmdb.org/t/p/w500//2cxhvwyEwRlysAmRH4iodkvo0z5.jpg",
+    poster: "/games_images/age_of_war.png",
     flashFile: "/games/Age_of_War.swf",
     description: "Test your luck and skill in this poker game.",
     categories: ["action"],
@@ -36,7 +36,7 @@ const games: Game[] = [
   {
     id: "14",
     name: "Dice-Wars",
-    poster: "https://image.tmdb.org/t/p/w500//2cxhvwyEwRlysAmRH4iodkvo0z5.jpg",
+    poster: "/games_images/dice_wars.png",
     flashFile: "/games/Dice-Wars.swf",
     description: "Test your luck and skill in this poker game.",
     categories: ["casino"],
@@ -44,7 +44,7 @@ const games: Game[] = [
   {
     id: "16",
     name: "Get Lost",
-    poster: "https://image.tmdb.org/t/p/w500//2cxhvwyEwRlysAmRH4iodkvo0z5.jpg",
+    poster: "/games_images/get_lost.png",
     flashFile: "/games/Get Lost.swf",
     description: "Test your luck and skill in this poker game.",
     categories: ["adventure", "strategy", "arcade"],
@@ -52,7 +52,7 @@ const games: Game[] = [
   {
     id: "17",
     name: "Ice Punch",
-    poster: "https://image.tmdb.org/t/p/w500//2cxhvwyEwRlysAmRH4iodkvo0z5.jpg",
+    poster: "/games_images/ice_punch.png",
     flashFile: "/games/Ice Punch.swf",
     description: "Test your luck and skill in this poker game.",
     categories: ["arcade"],
@@ -61,7 +61,7 @@ const games: Game[] = [
   {
     id: "18",
     name: "Missile",
-    poster: "https://image.tmdb.org/t/p/w500//2cxhvwyEwRlysAmRH4iodkvo0z5.jpg",
+    poster: "/games_images/missile.png",
     flashFile: "/games/Missile.swf",
     description: "Test your luck and skill in this poker game.",
     featured: true,
@@ -70,7 +70,7 @@ const games: Game[] = [
   {
     id: "20",
     name: "Coaster Racer",
-    poster: "https://image.tmdb.org/t/p/w500//2cxhvwyEwRlysAmRH4iodkvo0z5.jpg",
+    poster: "/games_images/coaster_racer.png",
     flashFile: "/games/coaster-racer-714079f9.swf",
     description: "Test your luck and skill in this poker game.",
     featured: true,
@@ -79,7 +79,7 @@ const games: Game[] = [
   {
     id: "21",
     name: "Flash Racer",
-    poster: "https://image.tmdb.org/t/p/w500//2cxhvwyEwRlysAmRH4iodkvo0z5.jpg",
+    poster: "/games_images/flash_racer.png",
     flashFile: "/games/flash-racer-1321817f.swf",
     description: "Test your luck and skill in this poker game.",
     categories: ["racing"],
