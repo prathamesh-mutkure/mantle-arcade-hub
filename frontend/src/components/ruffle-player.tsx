@@ -156,6 +156,8 @@ const RufflePlayerComponent: React.FC<RufflePlayerProps> = ({
 
   async function sendMetricsToBackend(gameMetrics: TGameMetrics) {
     console.log("Sending metrics to backend: ", gameMetrics);
+
+    // TODO: Attest/update here
   }
 
   function calculateFinalMetrics(prevMetrics: TGameMetrics): TGameMetrics {
