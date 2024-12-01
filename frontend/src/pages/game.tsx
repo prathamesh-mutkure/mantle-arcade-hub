@@ -27,6 +27,7 @@ export default function GamePage() {
         {selectedGame && (
           <RufflePlayerComponent
             swfUrl={selectedGame.flashFile}
+            gameId={selectedGame.id}
             width={800}
             height={600}
           />

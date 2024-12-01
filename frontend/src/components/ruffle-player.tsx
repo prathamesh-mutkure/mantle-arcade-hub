@@ -1,9 +1,12 @@
 import { RufflePlayer } from "@/types/ruffle";
 import React, { useEffect, useRef, useState } from "react";
 import dayjs from "dayjs";
+import { attestUserGameScore } from "@/lib/true-network-helper";
+import { useWalletStore } from "@/providers/walletStoreProvider";
 
 interface RufflePlayerProps {
   swfUrl: string;
+  gameId: string;
   width?: number;
   height?: number;
   onStart?: () => void;
@@ -21,12 +24,17 @@ type TGameMetrics = {
 
 const RufflePlayerComponent: React.FC<RufflePlayerProps> = ({
   swfUrl,
+  gameId,
   width = 1000,
   height = 750,
   onStart,
   onEnd,
   onError,
 }) => {
+  const { connectedWallet, connectedAccount, api } = useWalletStore(
+    (state) => state
+  );
+
   const containerRef = useRef<HTMLDivElement>(null);
   const playerRef = useRef<RufflePlayer | null>(null);
 
@@ -77,6 +85,9 @@ const RufflePlayerComponent: React.FC<RufflePlayerProps> = ({
         await player.load(swfUrl);
         console.log("SWF loaded");
         handleGameStart();
+
+        window.addEventListener("keyup", handleKeyPress);
+        window.addEventListener("mouseup", handleMouseClick);
       } catch (error) {
         console.error("Error loading Ruffle or SWF:", error);
         handleError(
@@ -97,6 +108,9 @@ const RufflePlayerComponent: React.FC<RufflePlayerProps> = ({
       }
 
       handleGameEnd();
+
+      window.removeEventListener("keyup", handleKeyPress);
+      window.removeEventListener("mouseup", handleMouseClick);
     };
   }, []);
 
@@ -157,7 +171,29 @@ const RufflePlayerComponent: React.FC<RufflePlayerProps> = ({
   async function sendMetricsToBackend(gameMetrics: TGameMetrics) {
     console.log("Sending metrics to backend: ", gameMetrics);
 
-    // TODO: Attest/update here
+    if (!connectedAccount?.address) {
+      console.log("No connected account, skipping metrics submission");
+      return;
+    }
+
+    try {
+      const txHash = await attestUserGameScore({
+        gameId: gameId,
+        userId: connectedAccount.address,
+
+        keyStokes: gameMetrics.keystrokes,
+        mouseClicks: gameMetrics.mouseClicks,
+
+        // TODO: Fix these once indexer is ready
+        totalGamePlayDuration: gameMetrics.totalPlayTime,
+        numberOfGameplays: 0,
+        gamingActivity: 0,
+      });
+
+      console.log("Metrics submitted successfully, txHash: ", txHash);
+    } catch (error) {
+      console.log("Error sending metrics to backend: ", error);
+    }
   }
 
   function calculateFinalMetrics(prevMetrics: TGameMetrics): TGameMetrics {
