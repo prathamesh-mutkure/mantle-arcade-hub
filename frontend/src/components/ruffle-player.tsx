@@ -22,6 +22,8 @@ type TGameMetrics = {
   totalPlayTime: number;
 };
 
+const SKIP_ONCHAIN_ATTESTATION = true;
+
 const RufflePlayerComponent: React.FC<RufflePlayerProps> = ({
   swfUrl,
   gameId,
@@ -174,6 +176,11 @@ const RufflePlayerComponent: React.FC<RufflePlayerProps> = ({
     if (!connectedAccount?.address) {
       console.log("No connected account, skipping metrics submission");
       return;
+    }
+
+    if (SKIP_ONCHAIN_ATTESTATION) {
+      console.log("Skipping on-chain attestation in testing");
+      return "0x...";
     }
 
     try {
