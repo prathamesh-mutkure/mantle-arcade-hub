@@ -192,7 +192,8 @@ const RufflePlayerComponent: React.FC<RufflePlayerProps> = ({
 
       console.log("Metrics submitted successfully, txHash: ", txHash);
     } catch (error) {
-      console.log("Error sending metrics to backend: ", error);
+      console.log("Error attesting:");
+      console.log(error);
     }
   }
 

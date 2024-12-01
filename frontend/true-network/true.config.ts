@@ -1,3 +1,4 @@
+import { TRUE_NETWORK_SECRET_KEY } from "@/lib/constants";
 import { TrueApi, testnet } from "@truenetworkio/sdk";
 import { TrueConfig } from "@truenetworkio/sdk/dist/utils/cli-config";
 
@@ -17,7 +18,7 @@ export const config: TrueConfig = {
   network: testnet,
   account: {
     address: "ky1nhZceGybqAfJaHBaZ2p4jWBJcMyP5msmScmHBxuR7pkV",
-    secret: process.env.TRUE_NETWORK_SECRET_KEY ?? "",
+    secret: TRUE_NETWORK_SECRET_KEY ?? "",
   },
   issuer: {
     name: "dotcade",
@@ -26,6 +27,6 @@ export const config: TrueConfig = {
   algorithm: {
     id: undefined,
     path: undefined,
-    schemas: []
+    schemas: [],
   },
 };
