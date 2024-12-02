@@ -68,14 +68,14 @@ export default function Home() {
                   </p>
                   <div className="flex gap-4">
                     <button
-                      onClick={() => router.push("/slow-roads")}
+                      onClick={() => router.push("/game?id=6")}
                       className="relative px-8 py-4 bg-gradient-to-r from-green-400 to-cyan-400 text-black font-bold overflow-hidden group"
                     >
                       <span className="relative z-10">PRESS START</span>
                       <div className="absolute inset-0 bg-gradient-to-r from-green-300 to-cyan-300 transform translate-y-full group-hover:translate-y-0 transition-transform" />
                     </button>
                     <button
-                      onClick={() => router.push("/dot-luck")}
+                      onClick={() => {}}
                       className="relative px-8 py-4 bg-gradient-to-r from-purple-400 to-pink-400 text-white font-bold overflow-hidden group"
                     >
                       <span className="relative z-10">HIGH SCORES</span>

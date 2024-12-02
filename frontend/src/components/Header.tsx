@@ -257,7 +257,7 @@ const Header: React.FC = () => {
   };
 
   return (
-    <div className="relative z-20 bg-black border-b-8 border-t-8 border-yellow-400 max-w-[100vw] overflow-auto">
+    <div className="relative z-20 bg-black border-b-8 border-t-8 border-yellow-400 max-w-[100vw]">
       <div className="absolute inset-0 overflow-hidden">
         {/* Retro moving lines effect */}
         <div
@@ -398,7 +398,7 @@ const Header: React.FC = () => {
                         <button
                           type="button"
                           onClick={handleDisconnect}
-                          className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 transition duration-200 flex items-center space-x-2"
+                          className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 transition duration-200 flex items-center space-x-2"
                         >
                           <LogOut size={16} />
                           <span>Disconnect Wallet</span>
@@ -411,7 +411,7 @@ const Header: React.FC = () => {
             ) : (
               <button
                 onClick={toggleWalletModal}
-                className="relative px-6 py-3 flex flex-row items-center justify-center gap-2 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black font-bold transform hover:scale-105 transition-all overflow-hidden group"
+                className="hidden md:flex relative px-6 py-3 flex-row items-center justify-center gap-2 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black font-bold transform hover:scale-105 transition-all overflow-hidden group"
               >
                 <Wallet size={16} className="relative z-10" />
                 <span className="relative z-10">Connect</span>
