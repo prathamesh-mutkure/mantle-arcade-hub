@@ -257,7 +257,7 @@ const Header: React.FC = () => {
   };
 
   return (
-    <div className="relative z-20 bg-black border-b-8 border-t-8 border-yellow-400">
+    <div className="relative z-20 bg-black border-b-8 border-t-8 border-yellow-400 max-w-[100vw] overflow-auto">
       <div className="absolute inset-0 overflow-hidden">
         {/* Retro moving lines effect */}
         <div
@@ -302,7 +302,7 @@ const Header: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => setShowChains(!showChains)}
-                    className="relative hidden  md:flex flex-row items-center gap-2 px-6 py-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black font-bold transform hover:scale-105 transition-all overflow-hidden group"
+                    className="relative hidden md:flex flex-row items-center gap-2 px-6 py-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black font-bold transform hover:scale-105 transition-all overflow-hidden group"
                     disabled={isChangingChain}
                   >
                     <img
