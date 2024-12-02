@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import GameCard from "./game-card";
 import { useRouter } from "next/router";
-import { Joystick } from "lucide-react";
+import { ChevronLeft, ChevronRight, Joystick } from "lucide-react";
 
 function GameRow({
   rowId,
@@ -14,17 +14,27 @@ function GameRow({
 }) {
   const router = useRouter();
 
-  const [trailerUrl, setTrailerUrl] = useState("");
+  const carouselRef = useRef<HTMLDivElement | null>(null);
+  const [showLeftButton, setShowLeftButton] = useState(false);
+  const [showRightButton, setShowRightButton] = useState(true);
 
-  const slideLeft = () => {
-    let slider = document.getElementById("slider" + rowId);
-    slider && (slider.scrollLeft = slider.scrollLeft - 500);
-  };
+  const scroll = (direction: "left" | "right") => {
+    if (!carouselRef.current) {
+      return;
+    }
 
-  const slideRight = () => {
-    let slider = document.getElementById("slider" + rowId);
+    const scrollAmount = direction === "left" ? -400 : 400;
+    carouselRef.current.scrollBy({
+      left: scrollAmount,
+      behavior: "smooth",
+    });
 
-    slider && (slider.scrollLeft = slider.scrollLeft + 500);
+    // Update button visibility after scroll
+    setTimeout(() => {
+      const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current!;
+      setShowLeftButton(scrollLeft > 0);
+      setShowRightButton(scrollLeft + clientWidth < scrollWidth - 10);
+    }, 300);
   };
 
   const handleClick = (item: Game) => {
@@ -39,10 +49,38 @@ function GameRow({
           {title}
         </h3>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {games.map((game, index) => (
-            <GameCard key={index} handleClick={handleClick} item={game} />
-          ))}
+        <div className="relative">
+          {showLeftButton && (
+            <button
+              onClick={() => scroll("left")}
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 bg-black bg-opacity-50 p-2 rounded-full text-white hover:bg-opacity-75 transition-all"
+            >
+              <ChevronLeft className="w-8 h-8" />
+            </button>
+          )}
+
+          {showRightButton && (
+            <button
+              onClick={() => scroll("right")}
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 bg-black bg-opacity-50 p-2 rounded-full text-white hover:bg-opacity-75 transition-all"
+            >
+              <ChevronRight className="w-8 h-8" />
+            </button>
+          )}
+
+          <div
+            ref={carouselRef}
+            className="flex overflow-x-auto scrollbar-hide scroll-smooth"
+            style={{
+              scrollbarWidth: "none",
+              msOverflowStyle: "none",
+              WebkitOverflowScrolling: "touch",
+            }}
+          >
+            {games.map((game, index) => (
+              <GameCard key={index} item={game} handleClick={handleClick} />
+            ))}
+          </div>
         </div>
       </div>
     </div>
