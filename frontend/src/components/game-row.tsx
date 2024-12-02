@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import GameCard from "./game-card";
-import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { useRouter } from "next/router";
+import { Joystick } from "lucide-react";
 
 function GameRow({
   rowId,
@@ -32,34 +32,20 @@ function GameRow({
   };
 
   return (
-    <>
-      <h2 className="text-white font-bold md:text-xl p-4">{title}</h2>
+    <div className="relative z-10 p-8">
+      <div className="max-w-7xl mx-auto">
+        <h3 className="text-3xl font-black text-white mb-8 flex items-center gap-3 arcade-text">
+          <Joystick className="w-8 h-8 text-yellow-400" />
+          {title}
+        </h3>
 
-      <div className="relative flex items-center group">
-        <MdChevronLeft
-          onClick={slideLeft}
-          size={40}
-          className="bg-white left-0 rounded-full absolute opacity-50 hover:opacity-100 cursor-pointer z-10 hidden group-hover:block"
-        />
-
-        <div
-          id={"slider" + rowId}
-          className="w-full h-full overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide relative"
-        >
-          {games.map((item, id) => (
-            <GameCard key={id} item={item} handleClick={handleClick} />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {games.map((game, index) => (
+            <GameCard key={index} handleClick={handleClick} item={game} />
           ))}
         </div>
-
-        <MdChevronRight
-          onClick={slideRight}
-          size={40}
-          className="bg-white right-0 rounded-full absolute opacity-50 hover:opacity-100 cursor-pointer z-10 hidden group-hover:block"
-        />
       </div>
-
-      {/* {trailerUrl && <YouTube videoId={trailerUrl} opts={opts} />} */}
-    </>
+    </div>
   );
 }
 

@@ -33,8 +33,7 @@ export default function Home() {
         }}
       />
 
-      {/* <Main /> */}
-
+      {/* Hero */}
       <div className="relative z-10 p-8">
         <div className="max-w-7xl mx-auto">
           <div className="relative bg-black rounded-lg p-1 border-4 border-purple-500 shadow-[0_0_20px_rgba(147,51,234,0.5)]">
@@ -120,6 +119,42 @@ export default function Home() {
           );
         }
       )}
+
+      <style jsx global>{`
+        @keyframes slide {
+          from {
+            transform: translateX(0);
+          }
+          to {
+            transform: translateX(100px);
+          }
+        }
+
+        @keyframes blink {
+          0%,
+          100% {
+            opacity: 1;
+          }
+          50% {
+            opacity: 0;
+          }
+        }
+
+        .arcade-text {
+          text-transform: uppercase;
+          letter-spacing: 2px;
+          -webkit-text-stroke: 2px currentColor;
+        }
+
+        .font-vt323 {
+          font-family: monospace;
+          letter-spacing: 1px;
+        }
+
+        .animate-blink {
+          animation: blink 1s step-end infinite;
+        }
+      `}</style>
     </main>
   );
 }
