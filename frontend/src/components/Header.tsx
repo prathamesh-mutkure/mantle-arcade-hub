@@ -128,6 +128,27 @@ const WalletModal: React.FC<{
   );
 };
 
+// SVG for Pacman animation
+const PacmanSVG = () => (
+  <svg
+    width="40"
+    height="40"
+    viewBox="0 0 40 40"
+    className="text-yellow-400 fill-current"
+  >
+    <path d="M20,0 A20,20 0 1 1 20,40 A20,20 0 1 1 20,0 L20,20 Z">
+      <animateTransform
+        attributeName="transform"
+        type="rotate"
+        from="0 20 20"
+        to="360 20 20"
+        dur="0.5s"
+        repeatCount="indefinite"
+      />
+    </path>
+  </svg>
+);
+
 const Header: React.FC = () => {
   const {
     connectedWallet,
@@ -235,129 +256,169 @@ const Header: React.FC = () => {
   };
 
   return (
-    <div className="flex justify-between items-center bg-transparent text-white p-4 w-full pb-0 z-[100] absolute">
-      <Link href="/">
-        <h1 className="text-red-600 text-4xl font-bold cursor-pointer uppercase">
-          Dot.Cade
-        </h1>
-      </Link>
+    <div className="relative z-10 bg-black border-b-8 border-t-8 border-yellow-400">
+      <div className="absolute inset-0 overflow-hidden">
+        {/* Retro moving lines effect */}
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `repeating-linear-gradient(
+              90deg,
+              #ff00ff20 0px,
+              #00ffff20 50px
+            )`,
+            backgroundSize: "100px 100px",
+            animation: "slide 3s linear infinite",
+          }}
+        />
+      </div>
 
-      <div className="flex items-center space-x-4">
-        {connectedWallet?.isConnected && connectedAccount ? (
-          <>
-            <div className="relative">
-              <button
-                type="button"
-                onClick={() => setShowChains(!showChains)}
-                className="bg-red-600 px-6 py-2 rounded cursor-pointer text-white flex items-center space-x-2 transition duration-200"
-                disabled={isChangingChain}
+      <div className="max-w-7xl mx-auto p-4 relative">
+        <div className="flex justify-between items-center">
+          <Link href="/">
+            <div className="flex items-center gap-4">
+              <PacmanSVG />
+              <h1
+                className="text-6xl font-black text-white"
+                style={{
+                  textShadow: `
+                    4px 0 0 #FF0000,
+                    -4px 0 0 #00FF00,
+                    0 4px 0 #0000FF,
+                    0 -4px 0 #FF00FF
+                  `,
+                }}
               >
-                <img
-                  src={currentChain?.logo || "/images/polkadot-logo.svg"}
-                  alt={currentChain?.name || "Polkadot"}
-                  width={24}
-                  height={24}
-                />
-
-                <span>{currentChain?.name || "Polkadot"}</span>
-
-                {isChangingChain ? (
-                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white" />
-                ) : (
-                  <ChevronDown size={16} />
-                )}
-              </button>
-
-              {showChains && !isChangingChain && (
-                <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
-                  <div className="py-1" role="menu">
-                    {chainsConfig.map((chain) => (
-                      <button
-                        type="button"
-                        key={chain.name}
-                        onClick={() => handleChangeChain(chain)}
-                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition duration-200"
-                      >
-                        <div className="flex items-center space-x-2">
-                          <img
-                            src={chain.logo}
-                            alt={chain.name}
-                            width={24}
-                            height={24}
-                          />
-                          <span>{chain.name}</span>
-                        </div>
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
+                .CADE
+              </h1>
             </div>
+          </Link>
 
-            <div className="relative">
+          <div className="flex items-center space-x-4">
+            {connectedWallet?.isConnected && connectedAccount ? (
+              <>
+                <div className="relative">
+                  <button
+                    type="button"
+                    onClick={() => setShowChains(!showChains)}
+                    className="relative flex flex-row items-center gap-2 px-6 py-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black font-bold transform hover:scale-105 transition-all overflow-hidden group"
+                    disabled={isChangingChain}
+                  >
+                    <img
+                      src={currentChain?.logo || "/images/polkadot-logo.svg"}
+                      alt={currentChain?.name || "Polkadot"}
+                      width={24}
+                      height={24}
+                      className="relative z-10"
+                    />
+
+                    <span className="relative z-10">
+                      {currentChain?.name || "Polkadot"}
+                    </span>
+
+                    {isChangingChain ? (
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white relative z-10" />
+                    ) : (
+                      <ChevronDown size={16} className="relative z-10" />
+                    )}
+
+                    <div className="absolute inset-0 bg-gradient-to-r from-yellow-300 to-yellow-400 transform translate-y-full group-hover:translate-y-0 transition-transform" />
+                  </button>
+
+                  {showChains && !isChangingChain && (
+                    <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
+                      <div className="py-1" role="menu">
+                        {chainsConfig.map((chain) => (
+                          <button
+                            type="button"
+                            key={chain.name}
+                            onClick={() => handleChangeChain(chain)}
+                            className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition duration-200"
+                          >
+                            <div className="flex items-center space-x-2">
+                              <img
+                                src={chain.logo}
+                                alt={chain.name}
+                                width={24}
+                                height={24}
+                              />
+                              <span>{chain.name}</span>
+                            </div>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                <div className="relative">
+                  <button
+                    type="button"
+                    onClick={toggleAccounts}
+                    className="flex items-center gap-2 relative px-6 py-3 bg-gradient-to-r from-pink-400 to-pink-500 text-white font-bold transform hover:scale-105 transition-all overflow-hidden group"
+                  >
+                    {connectedWallet?.metadata?.iconUrl && (
+                      <img
+                        src={connectedWallet.metadata.iconUrl}
+                        alt="wallet icon"
+                        className="w-5 h-5 rounded-full relative z-10"
+                      />
+                    )}
+                    <span className="relative z-10">{truncatedAddress}</span>
+                    <ChevronDown size={16} className="relative z-10" />
+
+                    <div className="absolute inset-0 bg-gradient-to-r from-pink-300 to-pink-400 transform translate-y-full group-hover:translate-y-0 transition-transform" />
+                  </button>
+                  {showAccounts && (
+                    <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
+                      <div className="py-1 max-h-60 overflow-auto" role="menu">
+                        {accounts.map((account) => (
+                          <button
+                            type="button"
+                            key={account.address}
+                            onClick={() => {
+                              connectAccount(account);
+                              setShowAccounts(false);
+                            }}
+                            className={`block px-4 py-2 text-sm w-full text-left transition duration-200 ${
+                              connectedAccount.address === account.address
+                                ? "bg-gray-200 text-gray-900"
+                                : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                            }`}
+                          >
+                            <div className="font-medium">
+                              {account.name || "Unnamed Account"}
+                            </div>
+                            <div className="text-xs text-gray-500 truncate">
+                              {account.address}
+                            </div>
+                          </button>
+                        ))}
+                        <button
+                          type="button"
+                          onClick={handleDisconnect}
+                          className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 transition duration-200 flex items-center space-x-2"
+                        >
+                          <LogOut size={16} />
+                          <span>Disconnect Wallet</span>
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </>
+            ) : (
               <button
-                type="button"
-                onClick={toggleAccounts}
-                className="bg-red-600 px-6 py-2 rounded cursor-pointer text-white flex items-center space-x-2 transition duration-200"
+                onClick={toggleWalletModal}
+                className="relative px-6 py-3 flex flex-row items-center justify-center gap-2 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black font-bold transform hover:scale-105 transition-all overflow-hidden group"
               >
-                {connectedWallet?.metadata?.iconUrl && (
-                  <img
-                    src={connectedWallet.metadata.iconUrl}
-                    alt="wallet icon"
-                    className="w-5 h-5 rounded-full"
-                  />
-                )}
-                <span>{truncatedAddress}</span>
-                <ChevronDown size={16} />
+                <Wallet size={16} className="relative z-10" />
+                <span className="relative z-10">Connect</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-yellow-300 to-yellow-400 transform translate-y-full group-hover:translate-y-0 transition-transform" />
               </button>
-              {showAccounts && (
-                <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
-                  <div className="py-1 max-h-60 overflow-auto" role="menu">
-                    {accounts.map((account) => (
-                      <button
-                        type="button"
-                        key={account.address}
-                        onClick={() => {
-                          connectAccount(account);
-                          setShowAccounts(false);
-                        }}
-                        className={`block px-4 py-2 text-sm w-full text-left transition duration-200 ${
-                          connectedAccount.address === account.address
-                            ? "bg-gray-200 text-gray-900"
-                            : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                        }`}
-                      >
-                        <div className="font-medium">
-                          {account.name || "Unnamed Account"}
-                        </div>
-                        <div className="text-xs text-gray-500 truncate">
-                          {account.address}
-                        </div>
-                      </button>
-                    ))}
-                    <button
-                      type="button"
-                      onClick={handleDisconnect}
-                      className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 transition duration-200 flex items-center space-x-2"
-                    >
-                      <LogOut size={16} />
-                      <span>Disconnect Wallet</span>
-                    </button>
-                  </div>
-                </div>
-              )}
-            </div>
-          </>
-        ) : (
-          <button
-            type="button"
-            onClick={toggleWalletModal}
-            className="bg-red-600 px-6 py-2 rounded cursor-pointer text-white flex items-center space-x-2 transition duration-200"
-          >
-            <Wallet size={16} />
-            <span>Connect Wallet</span>
-          </button>
-        )}
+            )}
+          </div>
+        </div>
       </div>
 
       <WalletModal
