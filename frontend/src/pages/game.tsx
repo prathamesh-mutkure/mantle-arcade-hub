@@ -21,18 +21,14 @@ export default function GamePage() {
 
   return (
     <main
-      className={`min-h-screen flex items-center justify-center text-white py-12 px-4`}
+      className={`h-[calc(100vh-108px)] flex items-center justify-center text-white py-12 px-4`}
     >
-      <div className="w-full flex items-center justify-center">
-        {selectedGame && (
-          <RufflePlayerComponent
-            swfUrl={selectedGame.flashFile}
-            gameId={selectedGame.id}
-            width={800}
-            height={600}
-          />
-        )}
-      </div>
+      {selectedGame && (
+        <RufflePlayerComponent
+          swfUrl={selectedGame.flashFile}
+          gameId={selectedGame.id}
+        />
+      )}
     </main>
   );
 }

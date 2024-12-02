@@ -302,7 +302,7 @@ const Header: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => setShowChains(!showChains)}
-                    className="relative flex flex-row items-center gap-2 px-6 py-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black font-bold transform hover:scale-105 transition-all overflow-hidden group"
+                    className="relative hidden  md:flex flex-row items-center gap-2 px-6 py-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black font-bold transform hover:scale-105 transition-all overflow-hidden group"
                     disabled={isChangingChain}
                   >
                     <img
@@ -352,7 +352,7 @@ const Header: React.FC = () => {
                   )}
                 </div>
 
-                <div className="relative">
+                <div className="relative hidden md:block">
                   <button
                     type="button"
                     onClick={toggleAccounts}
