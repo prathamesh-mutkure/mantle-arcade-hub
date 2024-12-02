@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import dayjs from "dayjs";
 import { attestUserGameScore } from "@/lib/true-network-helper";
 import { useWalletStore } from "@/providers/walletStoreProvider";
+import { Maximize2, Minimize2 } from "lucide-react";
 
 interface RufflePlayerProps {
   swfUrl: string;
@@ -41,6 +42,8 @@ const RufflePlayerComponent: React.FC<RufflePlayerProps> = ({
   const playerRef = useRef<RufflePlayer | null>(null);
 
   const isGameActiveRef = useRef(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
   const metricsRef = useRef<TGameMetrics>({
     startTime: null,
     endTime: null,
@@ -151,8 +154,12 @@ const RufflePlayerComponent: React.FC<RufflePlayerProps> = ({
     handleGameEnd();
   }
 
-  function handleKeyPress() {
+  function handleKeyPress(event: KeyboardEvent) {
     if (!isGameActiveRef.current) return;
+
+    if (event.key.toLowerCase() === "f") {
+      toggleFullscreen();
+    }
 
     metricsRef.current = {
       ...metricsRef.current,
@@ -167,6 +174,22 @@ const RufflePlayerComponent: React.FC<RufflePlayerProps> = ({
       ...metricsRef.current,
       mouseClicks: metricsRef.current.mouseClicks + 1,
     };
+  }
+
+  async function toggleFullscreen() {
+    if (!containerRef.current || !playerRef.current) return;
+
+    try {
+      if (!document.fullscreenElement) {
+        await containerRef.current.requestFullscreen();
+        setIsFullscreen(true);
+      } else {
+        await document.exitFullscreen();
+        setIsFullscreen(false);
+      }
+    } catch (error) {
+      console.error("Error toggling fullscreen:", error);
+    }
   }
 
   async function sendMetricsToBackend(gameMetrics: TGameMetrics) {
@@ -220,6 +243,13 @@ const RufflePlayerComponent: React.FC<RufflePlayerProps> = ({
   return (
     <div className="w-full h-full">
       <div id="ruffle-container" ref={containerRef} className="h-full w-full" />
+      <button
+        onClick={toggleFullscreen}
+        className="absolute bottom-4 right-4 bg-gray-800 bg-opacity-75 text-white p-2 rounded-full hover:bg-opacity-100 transition-opacity"
+        aria-label={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
+      >
+        {isFullscreen ? <Minimize2 size={20} /> : <Maximize2 size={20} />}
+      </button>
     </div>
   );
 };
