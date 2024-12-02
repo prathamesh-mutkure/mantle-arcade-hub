@@ -36,8 +36,11 @@ function GameCard({
         </div>
         <h4 className="text-xl font-bold text-white mb-2">{item.name}</h4>
         <p className="text-green-400 text-sm font-vt323">{"1000"}</p>
-        <button className="mt-4 w-full px-4 py-2 bg-gradient-to-r from-cyan-400 to-blue-400 text-black font-bold transform group-hover:scale-105 transition-transform">
-          INSERT COIN TO PLAY
+        <button
+          onClick={() => handleClick(item)}
+          className="mt-4 w-full px-4 py-2 bg-gradient-to-r from-cyan-400 to-blue-400 text-black font-bold transform group-hover:scale-105 transition-transform"
+        >
+          PLAY
         </button>
       </div>
     </div>

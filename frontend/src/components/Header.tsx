@@ -256,7 +256,7 @@ const Header: React.FC = () => {
   };
 
   return (
-    <div className="relative z-10 bg-black border-b-8 border-t-8 border-yellow-400">
+    <div className="relative z-20 bg-black border-b-8 border-t-8 border-yellow-400">
       <div className="absolute inset-0 overflow-hidden">
         {/* Retro moving lines effect */}
         <div

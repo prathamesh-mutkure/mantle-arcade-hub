@@ -34,7 +34,7 @@ export default function Home() {
       />
 
       {/* Hero */}
-      <div className="relative z-10 p-8">
+      <div className="relative p-8">
         <div className="max-w-7xl mx-auto">
           <div className="relative bg-black rounded-lg p-1 border-4 border-purple-500 shadow-[0_0_20px_rgba(147,51,234,0.5)]">
             {/* Screen Scanlines Effect */}
