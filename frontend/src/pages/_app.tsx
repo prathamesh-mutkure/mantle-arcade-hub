@@ -20,6 +20,42 @@ export default function App({ Component, pageProps }: AppProps) {
       <WalletStoreProvider>
         <Header />
         <Component {...pageProps} />
+
+        <style jsx global>{`
+          @keyframes slide {
+            from {
+              transform: translateX(0);
+            }
+            to {
+              transform: translateX(100px);
+            }
+          }
+
+          @keyframes blink {
+            0%,
+            100% {
+              opacity: 1;
+            }
+            50% {
+              opacity: 0;
+            }
+          }
+
+          .arcade-text {
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            -webkit-text-stroke: 2px currentColor;
+          }
+
+          .font-vt323 {
+            font-family: monospace;
+            letter-spacing: 1px;
+          }
+
+          .animate-blink {
+            animation: blink 1s step-end infinite;
+          }
+        `}</style>
       </WalletStoreProvider>
     </PolkadotWalletsContextProvider>
   );

@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import GameRow from "@/components/game-row";
 import useGameStore from "@/zustand/games-store";
 import { Star } from "lucide-react";
+import { useRouter } from "next/router";
 
 export default function Home() {
+  const router = useRouter();
   const games = useGameStore((state) => state.games);
 
   const categorizedGames = {
@@ -64,11 +66,17 @@ export default function Home() {
                     <span className="animate-blink">_</span>
                   </p>
                   <div className="flex gap-4">
-                    <button className="relative px-8 py-4 bg-gradient-to-r from-green-400 to-cyan-400 text-black font-bold overflow-hidden group">
+                    <button
+                      onClick={() => router.push("/slow-roads")}
+                      className="relative px-8 py-4 bg-gradient-to-r from-green-400 to-cyan-400 text-black font-bold overflow-hidden group"
+                    >
                       <span className="relative z-10">PRESS START</span>
                       <div className="absolute inset-0 bg-gradient-to-r from-green-300 to-cyan-300 transform translate-y-full group-hover:translate-y-0 transition-transform" />
                     </button>
-                    <button className="relative px-8 py-4 bg-gradient-to-r from-purple-400 to-pink-400 text-white font-bold overflow-hidden group">
+                    <button
+                      onClick={() => router.push("/dot-luck")}
+                      className="relative px-8 py-4 bg-gradient-to-r from-purple-400 to-pink-400 text-white font-bold overflow-hidden group"
+                    >
                       <span className="relative z-10">HIGH SCORES</span>
                       <div className="absolute inset-0 bg-gradient-to-r from-purple-300 to-pink-300 transform translate-y-full group-hover:translate-y-0 transition-transform" />
                     </button>
@@ -119,42 +127,6 @@ export default function Home() {
           );
         }
       )}
-
-      <style jsx global>{`
-        @keyframes slide {
-          from {
-            transform: translateX(0);
-          }
-          to {
-            transform: translateX(100px);
-          }
-        }
-
-        @keyframes blink {
-          0%,
-          100% {
-            opacity: 1;
-          }
-          50% {
-            opacity: 0;
-          }
-        }
-
-        .arcade-text {
-          text-transform: uppercase;
-          letter-spacing: 2px;
-          -webkit-text-stroke: 2px currentColor;
-        }
-
-        .font-vt323 {
-          font-family: monospace;
-          letter-spacing: 1px;
-        }
-
-        .animate-blink {
-          animation: blink 1s step-end infinite;
-        }
-      `}</style>
     </main>
   );
 }
