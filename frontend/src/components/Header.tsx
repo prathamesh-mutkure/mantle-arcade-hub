@@ -227,6 +227,7 @@ const Header: React.FC = () => {
   );
 
   const handleDisconnect = useCallback(() => {
+    localStorage.removeItem("selectedWallet");
     disconnectWallet();
     disconnectAccount();
     setShowAccounts(false);
@@ -417,6 +418,16 @@ const Header: React.FC = () => {
                 <div className="absolute inset-0 bg-gradient-to-r from-yellow-300 to-yellow-400 transform translate-y-full group-hover:translate-y-0 transition-transform" />
               </button>
             )}
+
+            <Link href="/profile">
+              <div className="w-14 h-14 rounded-full bg-gray-700 overflow-hidden">
+                <img
+                  src="/profile.jpg"
+                  alt="Profile"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </Link>
           </div>
         </div>
       </div>
