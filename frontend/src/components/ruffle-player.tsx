@@ -8,6 +8,7 @@ import { Maximize2, Minimize2 } from "lucide-react";
 interface RufflePlayerProps {
   swfUrl: string;
   gameId: string;
+  gameType: Game["type"];
   width?: number;
   height?: number;
   onStart?: () => void;
@@ -28,6 +29,7 @@ const SKIP_ONCHAIN_ATTESTATION = false;
 const RufflePlayerComponent: React.FC<RufflePlayerProps> = ({
   swfUrl,
   gameId,
+  gameType,
   width = 1000,
   height = 750,
   onStart,
@@ -242,7 +244,13 @@ const RufflePlayerComponent: React.FC<RufflePlayerProps> = ({
 
   return (
     <div className="w-full h-full">
-      <div id="ruffle-container" ref={containerRef} className="h-full w-full" />
+      {gameType === "flash" && (
+        <div
+          id="ruffle-container"
+          ref={containerRef}
+          className="h-full w-full"
+        />
+      )}
       <button
         onClick={toggleFullscreen}
         className="absolute bottom-4 right-4 bg-gray-800 bg-opacity-75 text-white p-2 rounded-full hover:bg-opacity-100 transition-opacity"

@@ -7,6 +7,7 @@ const games: Game[] = [
     description: "Test your luck and skill in this poker game.",
     featured: true,
     categories: ["casino", "arcade"],
+    type: "flash",
   },
   {
     id: "0",
@@ -16,6 +17,7 @@ const games: Game[] = [
     description: "Test your luck and skill in this poker game.",
     featured: true,
     categories: ["casino", "featured"],
+    type: "flash",
   },
   {
     id: "10",
@@ -24,6 +26,7 @@ const games: Game[] = [
     flashFile: "/games/racewalk.swf",
     description: "Test your luck and skill in this poker game.",
     categories: ["racing"],
+    type: "flash",
   },
   {
     id: "13",
@@ -32,6 +35,7 @@ const games: Game[] = [
     flashFile: "/games/Age_of_War.swf",
     description: "Test your luck and skill in this poker game.",
     categories: ["action"],
+    type: "flash",
   },
   {
     id: "14",
@@ -40,6 +44,7 @@ const games: Game[] = [
     flashFile: "/games/Dice-Wars.swf",
     description: "Test your luck and skill in this poker game.",
     categories: ["casino"],
+    type: "flash",
   },
   {
     id: "16",
@@ -48,6 +53,7 @@ const games: Game[] = [
     flashFile: "/games/Get Lost.swf",
     description: "Test your luck and skill in this poker game.",
     categories: ["adventure", "strategy", "arcade"],
+    type: "flash",
   },
   {
     id: "17",
@@ -57,6 +63,7 @@ const games: Game[] = [
     description: "Test your luck and skill in this poker game.",
     categories: ["arcade"],
     featured: true,
+    type: "flash",
   },
   {
     id: "18",
@@ -66,6 +73,7 @@ const games: Game[] = [
     description: "Test your luck and skill in this poker game.",
     featured: true,
     categories: ["arcade"],
+    type: "flash",
   },
   {
     id: "20",
@@ -75,6 +83,7 @@ const games: Game[] = [
     description: "Test your luck and skill in this poker game.",
     featured: true,
     categories: ["racing"],
+    type: "flash",
   },
   {
     id: "21",
@@ -83,6 +92,7 @@ const games: Game[] = [
     flashFile: "/games/flash-racer-1321817f.swf",
     description: "Test your luck and skill in this poker game.",
     categories: ["racing"],
+    type: "flash",
   },
 ];
 

@@ -19,4 +19,5 @@ type Game = {
   categories: TGameCategory[];
   description: string;
   featured?: boolean;
+  type: "flash" | "iframe";
 };
