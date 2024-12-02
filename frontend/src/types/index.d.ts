@@ -9,6 +9,7 @@ type TGameCategory =
   | "racing"
   | "simulation"
   | "casino"
+  | "partner"
   | "other";
 
 type Game = {

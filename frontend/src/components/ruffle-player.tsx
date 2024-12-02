@@ -72,6 +72,10 @@ const RufflePlayerComponent: React.FC<RufflePlayerProps> = ({
 
   async function loadRuffle() {
     try {
+      if (gameType !== "flash") {
+        return;
+      }
+
       if (!window.RufflePlayer) {
         const script = document.createElement("script");
         script.src = "https://unpkg.com/@ruffle-rs/ruffle";
@@ -117,6 +121,17 @@ const RufflePlayerComponent: React.FC<RufflePlayerProps> = ({
           ? error
           : new Error("Failed to load Ruffle player")
       );
+    }
+  }
+
+  function loadIFrame() {
+    try {
+      handleGameStart();
+
+      window.addEventListener("keyup", handleKeyPress);
+      window.addEventListener("mouseup", handleMouseClick);
+    } catch (error) {
+      console.log("Failed setting up game");
     }
   }
 
@@ -249,6 +264,15 @@ const RufflePlayerComponent: React.FC<RufflePlayerProps> = ({
           id="ruffle-container"
           ref={containerRef}
           className="h-full w-full"
+        />
+      )}
+      {gameType === "iframe" && (
+        <iframe
+          src={swfUrl}
+          className="h-full w-full"
+          allowFullScreen={true}
+          frameBorder="0"
+          onLoad={loadIFrame}
         />
       )}
       <button

@@ -20,6 +20,7 @@ export default function Home() {
     simulation: games.filter((game) => game.categories.includes("simulation")),
     casino: games.filter((game) => game.categories.includes("casino")),
     other: games.filter((game) => game.categories.includes("other")),
+    partner: games.filter((game) => game.categories.includes("partner")),
   };
 
   return (
@@ -111,10 +112,22 @@ export default function Home() {
         />
       )}
 
+      {categorizedGames.partner.length > 0 && (
+        <GameRow
+          rowId="partner"
+          title="Partner Games"
+          games={categorizedGames.partner}
+        />
+      )}
+
       {Object.entries(categorizedGames).map(
         ([category, categoryGames], index) => {
           // Skip featured category as it's already shown and empty categories
-          if (category === "featured" || categoryGames.length === 0)
+          if (
+            category === "featured" ||
+            category === "partner games" ||
+            categoryGames.length === 0
+          )
             return null;
 
           return (
