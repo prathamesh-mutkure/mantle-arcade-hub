@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postinstall": "pnpx prisma generate"
   },
   "dependencies": {
     "@next/third-parties": "^15.0.3",
@@ -16,6 +17,7 @@
     "@polkadot-onboard/wallet-connect": "^1.1.0",
     "@polkadot/api": "^15.0.1",
     "@polkadot/util-crypto": "^13.2.3",
+    "@prisma/client": "^6.0.1",
     "@truenetworkio/sdk": "^0.0.10",
     "axios": "^1.7.8",
     "dayjs": "^1.11.13",
@@ -32,6 +34,7 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "postcss": "^8",
+    "prisma": "^6.0.1",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   },

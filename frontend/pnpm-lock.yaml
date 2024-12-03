@@ -29,6 +29,9 @@ importers:
       '@polkadot/util-crypto':
         specifier: ^13.2.3
         version: 13.2.3(@polkadot/util@13.2.3)
+      '@prisma/client':
+        specifier: ^6.0.1
+        version: 6.0.1(prisma@6.0.1)
       '@truenetworkio/sdk':
         specifier: ^0.0.10
         version: 0.0.10
@@ -72,6 +75,9 @@ importers:
       postcss:
         specifier: ^8
         version: 8.4.49
+      prisma:
+        specifier: ^6.0.1
+        version: 6.0.1
       tailwindcss:
         specifier: ^3.4.1
         version: 3.4.15(ts-node@10.9.2(@types/node@20.17.9)(typescript@5.7.2))
@@ -660,6 +666,30 @@ packages:
   '@polkadot/x-ws@13.2.3':
     resolution: {integrity: sha512-Y6MTAWgcnrnx/LkBx65X3ZyoJH5EFj3tXtflRoKg1+PLHSLuNBV7Wi5mLcE70z4e5c+4hgBbLq+8SqCqzFtSPw==}
     engines: {node: '>=18'}
+
+  '@prisma/client@6.0.1':
+    resolution: {integrity: sha512-60w7kL6bUxz7M6Gs/V+OWMhwy94FshpngVmOY05TmGD0Lhk+Ac0ZgtjlL6Wll9TD4G03t4Sq1wZekNVy+Xdlbg==}
+    engines: {node: '>=18.18'}
+    peerDependencies:
+      prisma: '*'
+    peerDependenciesMeta:
+      prisma:
+        optional: true
+
+  '@prisma/debug@6.0.1':
+    resolution: {integrity: sha512-jQylgSOf7ibTVxqBacnAlVGvek6fQxJIYCQOeX2KexsfypNzXjJQSS2o5s+Mjj2Np93iSOQUaw6TvPj8syhG4w==}
+
+  '@prisma/engines-version@5.23.0-27.5dbef10bdbfb579e07d35cc85fb1518d357cb99e':
+    resolution: {integrity: sha512-JmIds0Q2/vsOmnuTJYxY4LE+sajqjYKhLtdOT6y4imojqv5d/aeVEfbBGC74t8Be1uSp0OP8lxIj2OqoKbLsfQ==}
+
+  '@prisma/engines@6.0.1':
+    resolution: {integrity: sha512-4hxzI+YQIR2uuDyVsDooFZGu5AtixbvM2psp+iayDZ4hRrAHo/YwgA17N23UWq7G6gRu18NvuNMb48qjP3DPQw==}
+
+  '@prisma/fetch-engine@6.0.1':
+    resolution: {integrity: sha512-T36bWFVGeGYYSyYOj9d+O9G3sBC+pAyMC+jc45iSL63/Haq1GrYjQPgPMxrEj9m739taXrupoysRedQ+VyvM/Q==}
+
+  '@prisma/get-platform@6.0.1':
+    resolution: {integrity: sha512-zspC9vlxAqx4E6epMPMLLBMED2VD8axDe8sPnquZ8GOsn6tiacWK0oxrGK4UAHYzYUVuMVUApJbdXB2dFpLhvg==}
 
   '@scure/base@1.2.1':
     resolution: {integrity: sha512-DGmGtC8Tt63J5GfHgfl5CuAXh96VF/LD8K9Hr/Gv0J2lAoRGlPOMpqMpMbCTOoOJMZCk2Xt+DskdDyn6dEFdzQ==}
@@ -1563,6 +1593,11 @@ packages:
   postcss@8.4.49:
     resolution: {integrity: sha512-OCVPnIObs4N29kxTjzLfUryOkvZEq+pf8jTF0lg8E7uETuWHA+v7j3c/xJmiqpX450191LlmZfUKkXxkTry7nA==}
     engines: {node: ^10 || ^12 || >=14}
+
+  prisma@6.0.1:
+    resolution: {integrity: sha512-CaMNFHkf+DDq8zq3X/JJsQ4Koy7dyWwwtOKibkT/Am9j/tDxcfbg7+lB1Dzhx18G/+RQCMgjPYB61bhRqteNBQ==}
+    engines: {node: '>=18.18'}
+    hasBin: true
 
   process-warning@1.0.0:
     resolution: {integrity: sha512-du4wfLyj4yCZq1VupnVSZmRsPJsNuxoDQFdCFHLaYiEbFBD7QE0a+I4D7hOxrVnh78QE/YipFAj9lXHiXocV+Q==}
@@ -2996,6 +3031,31 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
+  '@prisma/client@6.0.1(prisma@6.0.1)':
+    optionalDependencies:
+      prisma: 6.0.1
+
+  '@prisma/debug@6.0.1': {}
+
+  '@prisma/engines-version@5.23.0-27.5dbef10bdbfb579e07d35cc85fb1518d357cb99e': {}
+
+  '@prisma/engines@6.0.1':
+    dependencies:
+      '@prisma/debug': 6.0.1
+      '@prisma/engines-version': 5.23.0-27.5dbef10bdbfb579e07d35cc85fb1518d357cb99e
+      '@prisma/fetch-engine': 6.0.1
+      '@prisma/get-platform': 6.0.1
+
+  '@prisma/fetch-engine@6.0.1':
+    dependencies:
+      '@prisma/debug': 6.0.1
+      '@prisma/engines-version': 5.23.0-27.5dbef10bdbfb579e07d35cc85fb1518d357cb99e
+      '@prisma/get-platform': 6.0.1
+
+  '@prisma/get-platform@6.0.1':
+    dependencies:
+      '@prisma/debug': 6.0.1
+
   '@scure/base@1.2.1': {}
 
   '@stablelib/aead@1.0.1': {}
@@ -4086,6 +4146,12 @@ snapshots:
       nanoid: 3.3.8
       picocolors: 1.1.1
       source-map-js: 1.2.1
+
+  prisma@6.0.1:
+    dependencies:
+      '@prisma/engines': 6.0.1
+    optionalDependencies:
+      fsevents: 2.3.3
 
   process-warning@1.0.0: {}
 
