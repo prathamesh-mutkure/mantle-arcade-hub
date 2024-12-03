@@ -18,8 +18,8 @@ const profile = {
   level: 42,
   badges: [
     { id: 1, name: "Early Adopter", icon: "🏆" },
-    { id: 2, name: "Pro Gamer", icon: "⭐" },
-    { id: 3, name: "Champion", icon: "🏅" },
+    { id: 2, name: "Beta Tester", icon: "⭐" },
+    // { id: 3, name: "Champion", icon: "🏅" },
   ],
   games: [
     {
@@ -57,6 +57,7 @@ const ProfilePage = () => {
   useEffect(() => {
     async function fetchStats() {
       if (!connectedAccount?.address) {
+        setStats(null);
         return;
       }
 
@@ -75,22 +76,6 @@ const ProfilePage = () => {
 
     fetchStats();
   }, [connectedAccount]);
-
-  if (loading) {
-    return <div>Loading stats...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
-  if (!stats) {
-    return <div>No stats available</div>;
-  }
-
-  if (!isWalletConnected) {
-    return <div>Please connect wallet to continue</div>;
-  }
 
   return (
     <div className="min-h-screen bg-gray-900 text-white">
@@ -116,7 +101,9 @@ const ProfilePage = () => {
             <div className="flex-grow">
               <h1 className="text-2xl font-bold">{profile.name}</h1>
               <div className="flex items-center gap-2 text-gray-400">
-                <span>{connectedAccount?.address}</span>
+                <span>
+                  {connectedAccount?.address ?? "Please connect wallet"}
+                </span>
                 <ExternalLink className="w-4 h-4 cursor-pointer hover:text-white transition-colors" />
               </div>
             </div>
@@ -127,7 +114,7 @@ const ProfilePage = () => {
                 <div className="flex items-center gap-2 text-yellow-500">
                   <Trophy className="w-5 h-5" />
                   <span className="text-xl font-bold">
-                    {stats.totalScore ?? "-"}
+                    {stats?.totalScore ?? "-"}
                   </span>
                 </div>
                 <span className="text-sm text-gray-400">Gamer Score</span>
@@ -135,7 +122,9 @@ const ProfilePage = () => {
               <div className="text-center">
                 <div className="flex items-center gap-2 text-blue-500">
                   <Star className="w-5 h-5" />
-                  <span className="text-xl font-bold">{profile.level}</span>
+                  <span className="text-xl font-bold">
+                    {stats?.totalScore ? "1" : "-"}
+                  </span>
                 </div>
                 <span className="text-sm text-gray-400">Level</span>
               </div>
@@ -161,37 +150,38 @@ const ProfilePage = () => {
       <div className="max-w-6xl mx-auto mt-8 p-6">
         <h2 className="text-xl font-bold mb-6">Gaming History</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {stats.games.map((game) => {
-            const gameInfo = sampleGames.find((g) => g.id === game.gameId);
+          {stats &&
+            stats.games.map((game) => {
+              const gameInfo = sampleGames.find((g) => g.id === game.gameId);
 
-            return (
-              <div
-                key={game.gameId}
-                className="bg-gray-800 rounded-xl p-6 hover:bg-gray-750 transition-colors"
-              >
-                <div className="flex justify-between items-start mb-4">
-                  <h3 className="font-bold">{gameInfo?.name}</h3>
+              return (
+                <div
+                  key={game.gameId}
+                  className="bg-gray-800 rounded-xl p-6 hover:bg-gray-750 transition-colors"
+                >
+                  <div className="flex justify-between items-start mb-4">
+                    <h3 className="font-bold">{gameInfo?.name}</h3>
 
-                  <div className="flex items-center gap-2 text-green-500">
-                    <Star className="w-4 h-4" />
-                    <span className="font-bold">{3}</span>
+                    <div className="flex items-center gap-2 text-green-500">
+                      <Star className="w-4 h-4" />
+                      <span className="font-bold">{3}</span>
+                    </div>
+                  </div>
+
+                  <div className="flex justify-between text-sm text-gray-400">
+                    <div className="flex items-center gap-2">
+                      <Gamepad2 className="w-4 h-4" />
+                      <span>{game.gamingActivity} pts</span>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <Clock className="w-4 h-4" />
+                      <span>{game.stats.plays}</span>
+                    </div>
                   </div>
                 </div>
-
-                <div className="flex justify-between text-sm text-gray-400">
-                  <div className="flex items-center gap-2">
-                    <Gamepad2 className="w-4 h-4" />
-                    <span>{game.gamingActivity} pts</span>
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    <Clock className="w-4 h-4" />
-                    <span>{game.stats.plays}</span>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+              );
+            })}
         </div>
       </div>
     </div>
