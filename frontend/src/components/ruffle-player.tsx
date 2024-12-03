@@ -1,9 +1,13 @@
 import { RufflePlayer } from "@/types/ruffle";
 import React, { useEffect, useRef, useState } from "react";
 import dayjs from "dayjs";
-import { attestUserGameScore } from "@/lib/true-network-helper";
+import {
+  attestUserGameScore,
+  TUserGameScoreSchema,
+} from "@/lib/true-network-helper";
 import { useWalletStore } from "@/providers/walletStoreProvider";
 import { Maximize2, Minimize2 } from "lucide-react";
+import { calculateGamingActivity } from "@/lib/reputation-score-helper";
 
 interface RufflePlayerProps {
   swfUrl: string;
@@ -210,8 +214,6 @@ const RufflePlayerComponent: React.FC<RufflePlayerProps> = ({
   }
 
   async function sendMetricsToBackend(gameMetrics: TGameMetrics) {
-    console.log("Sending metrics to backend: ", gameMetrics);
-
     if (!connectedAccount?.address) {
       console.log("No connected account, skipping metrics submission");
       return;
@@ -223,18 +225,30 @@ const RufflePlayerComponent: React.FC<RufflePlayerProps> = ({
     }
 
     try {
-      const txHash = await attestUserGameScore({
+      // TODO: Get old attestation based on userId and gameId from True Network
+      // If exists, update the existing attestation with new metrics
+      // If not, create a new attestation
+
+      const gamingActivity = calculateGamingActivity({
+        keyStrokes: gameMetrics.keystrokes,
+        mouseClicks: gameMetrics.mouseClicks,
+        numberOfGameplays: 1,
+        totalGamePlayDuration: gameMetrics.totalPlayTime,
+      });
+
+      const dataToAttest: TUserGameScoreSchema = {
         gameId: gameId,
         userId: connectedAccount.address,
-
         keyStokes: gameMetrics.keystrokes,
         mouseClicks: gameMetrics.mouseClicks,
-
-        // TODO: Fix these once indexer is ready
         totalGamePlayDuration: gameMetrics.totalPlayTime,
-        numberOfGameplays: 0,
-        gamingActivity: 0,
-      });
+        numberOfGameplays: 1,
+        gamingActivity: gamingActivity,
+      };
+
+      console.log("Attesting data: ", dataToAttest);
+
+      const txHash = await attestUserGameScore(dataToAttest);
 
       console.log("Metrics submitted successfully, txHash: ", txHash);
     } catch (error) {

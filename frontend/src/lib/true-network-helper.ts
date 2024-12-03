@@ -18,6 +18,8 @@ export type TUserGameScoreSchema = {
 export async function attestUserGameScore(payload: TUserGameScoreSchema) {
   const api = await getTrueNetworkInstance();
 
+  // api.network.tx.credentialsModule.updateIssuer()
+
   const user = payload.userId;
 
   const txHash = await userGameScoreSchema.attest(api, user, {
