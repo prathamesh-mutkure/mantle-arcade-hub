@@ -28,11 +28,8 @@ export default function Document() {
         />
 
         <meta name="twitter:card" content="summary_large_image" />
-        <meta property="twitter:domain" content="dotcade-polkadot.vercel.app" />
-        <meta
-          property="twitter:url"
-          content="https://dotcade-polkadot.vercel.app"
-        />
+        <meta property="twitter:domain" content="dotcade.fun" />
+        <meta property="twitter:url" content="https://dotcade.fun" />
         <meta
           name="twitter:title"
           content="DotCade - OnChain Games Powered by Polkadot"
