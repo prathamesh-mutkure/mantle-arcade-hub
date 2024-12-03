@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Trophy,
   Star,
@@ -8,6 +8,8 @@ import {
   Shield,
 } from "lucide-react";
 import { useWalletStore } from "@/providers/walletStoreProvider";
+import { getUserStats, UserStatsResponse } from "@/lib/backend-helper";
+import { sampleGames } from "@/lib/data";
 
 const profile = {
   name: "CryptoGamer",
@@ -45,16 +47,49 @@ const profile = {
 };
 
 const ProfilePage = () => {
-  const { isWalletConnected, accounts } = useWalletStore((state) => state);
+  const { isWalletConnected, connectedWallet, connectedAccount, api } =
+    useWalletStore((state) => state);
 
-  // Mock data - replace with actual data from your backend
+  const [stats, setStats] = useState<UserStatsResponse | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetchStats() {
+      if (!connectedAccount?.address) {
+        return;
+      }
+
+      try {
+        setLoading(true);
+        setError(null);
+
+        const data = await getUserStats(connectedAccount.address);
+        setStats(data);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "An error occurred");
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchStats();
+  }, [connectedAccount]);
+
+  if (loading) {
+    return <div>Loading stats...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  if (!stats) {
+    return <div>No stats available</div>;
+  }
 
   if (!isWalletConnected) {
-    return (
-      <>
-        <p>Connect wallet</p>
-      </>
-    );
+    return <div>Please connect wallet to continue</div>;
   }
 
   return (
@@ -81,7 +116,7 @@ const ProfilePage = () => {
             <div className="flex-grow">
               <h1 className="text-2xl font-bold">{profile.name}</h1>
               <div className="flex items-center gap-2 text-gray-400">
-                <span>{accounts[0]?.address}</span>
+                <span>{connectedAccount?.address}</span>
                 <ExternalLink className="w-4 h-4 cursor-pointer hover:text-white transition-colors" />
               </div>
             </div>
@@ -92,7 +127,7 @@ const ProfilePage = () => {
                 <div className="flex items-center gap-2 text-yellow-500">
                   <Trophy className="w-5 h-5" />
                   <span className="text-xl font-bold">
-                    {profile.gamerScore}
+                    {stats.totalScore ?? "-"}
                   </span>
                 </div>
                 <span className="text-sm text-gray-400">Gamer Score</span>
@@ -126,30 +161,37 @@ const ProfilePage = () => {
       <div className="max-w-6xl mx-auto mt-8 p-6">
         <h2 className="text-xl font-bold mb-6">Gaming History</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {profile.games.map((game) => (
-            <div
-              key={game.id}
-              className="bg-gray-800 rounded-xl p-6 hover:bg-gray-750 transition-colors"
-            >
-              <div className="flex justify-between items-start mb-4">
-                <h3 className="font-bold">{game.name}</h3>
-                <div className="flex items-center gap-2 text-green-500">
-                  <Star className="w-4 h-4" />
-                  <span className="font-bold">{game.level}</span>
+          {stats.games.map((game) => {
+            const gameInfo = sampleGames.find((g) => g.id === game.gameId);
+
+            return (
+              <div
+                key={game.gameId}
+                className="bg-gray-800 rounded-xl p-6 hover:bg-gray-750 transition-colors"
+              >
+                <div className="flex justify-between items-start mb-4">
+                  <h3 className="font-bold">{gameInfo?.name}</h3>
+
+                  <div className="flex items-center gap-2 text-green-500">
+                    <Star className="w-4 h-4" />
+                    <span className="font-bold">{3}</span>
+                  </div>
+                </div>
+
+                <div className="flex justify-between text-sm text-gray-400">
+                  <div className="flex items-center gap-2">
+                    <Gamepad2 className="w-4 h-4" />
+                    <span>{game.gamingActivity} pts</span>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <Clock className="w-4 h-4" />
+                    <span>{game.stats.plays}</span>
+                  </div>
                 </div>
               </div>
-              <div className="flex justify-between text-sm text-gray-400">
-                <div className="flex items-center gap-2">
-                  <Gamepad2 className="w-4 h-4" />
-                  <span>{game.score} pts</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Clock className="w-4 h-4" />
-                  <span>{new Date(game.lastPlayed).toLocaleDateString()}</span>
-                </div>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>
