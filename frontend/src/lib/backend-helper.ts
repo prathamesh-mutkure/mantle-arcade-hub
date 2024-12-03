@@ -50,3 +50,40 @@ export async function storeAttestationInBackend(
     throw new Error("Failed to submit gameplay data");
   }
 }
+
+export interface GameStats {
+  plays: number;
+  duration: number;
+  keyStrokes: number;
+  mouseClicks: number;
+}
+
+export interface GameActivity {
+  gameId: string;
+  gamingActivity: number;
+  stats: GameStats;
+}
+
+export interface UserStatsResponse {
+  userId: string;
+  totalScore: number;
+  games: GameActivity[];
+}
+
+export async function getUserStats(userId: string): Promise<UserStatsResponse> {
+  try {
+    const response = await axios.get<UserStatsResponse>(
+      `/api/users/${userId}/stats`
+    );
+
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      throw new Error(
+        error.response?.data?.message || "Failed to fetch user stats"
+      );
+    }
+
+    throw error;
+  }
+}
