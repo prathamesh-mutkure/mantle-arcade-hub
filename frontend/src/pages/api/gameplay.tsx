@@ -35,6 +35,16 @@ export default async function handler(
 
     // Start a transaction to update both tables
     const result = await prisma.$transaction(async (tx) => {
+      // First ensure UserScore exists
+      await tx.userScore.upsert({
+        where: { userId },
+        create: {
+          userId,
+          score: 0, // Initial score
+        },
+        update: {}, // No update needed if exists
+      });
+
       // Create or update gameplay stats
       const gameplay = await tx.gamePlay.upsert({
         where: {
@@ -78,6 +88,8 @@ export default async function handler(
     return res.status(200).json(result);
   } catch (error) {
     console.error("Error processing gameplay:", error);
+    console.log(error);
+
     return res.status(500).json({ error: "Failed to process gameplay" });
   } finally {
     // Optional: Disconnect PrismaClient if not using global instance

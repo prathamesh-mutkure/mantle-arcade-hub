@@ -8,6 +8,7 @@ import {
 import { useWalletStore } from "@/providers/walletStoreProvider";
 import { Maximize2, Minimize2 } from "lucide-react";
 import { calculateGamingActivity } from "@/lib/reputation-score-helper";
+import { storeAttestationInBackend } from "@/lib/backend-helper";
 
 interface RufflePlayerProps {
   swfUrl: string;
@@ -229,6 +230,8 @@ const RufflePlayerComponent: React.FC<RufflePlayerProps> = ({
       // If exists, update the existing attestation with new metrics
       // If not, create a new attestation
 
+      console.log("Attesting metrics on-chain...");
+
       const gamingActivity = calculateGamingActivity({
         keyStrokes: gameMetrics.keystrokes,
         mouseClicks: gameMetrics.mouseClicks,
@@ -246,11 +249,22 @@ const RufflePlayerComponent: React.FC<RufflePlayerProps> = ({
         gamingActivity: gamingActivity,
       };
 
-      console.log("Attesting data: ", dataToAttest);
-
       const txHash = await attestUserGameScore(dataToAttest);
 
-      console.log("Metrics submitted successfully, txHash: ", txHash);
+      console.log("Metrics attested on-chain, txHash: ", txHash);
+
+      const data = await storeAttestationInBackend({
+        gameId: dataToAttest.gameId,
+        userId: dataToAttest.userId,
+        gamePlayDuration: dataToAttest.totalGamePlayDuration,
+        mouseClicks: dataToAttest.mouseClicks,
+        keyStrokes: dataToAttest.keyStokes,
+        gamingActivity: dataToAttest.gamingActivity,
+        overallScore: dataToAttest.gamingActivity,
+      });
+
+      console.log("Gameplay data stored in backend: ", data);
+      return txHash;
     } catch (error) {
       console.log("Error attesting:");
       console.log(error);
@@ -258,8 +272,6 @@ const RufflePlayerComponent: React.FC<RufflePlayerProps> = ({
   }
 
   function calculateFinalMetrics(prevMetrics: TGameMetrics): TGameMetrics {
-    console.log("prevMetrics: ", prevMetrics);
-
     const endTime = dayjs(new Date());
     const startTime = dayjs(prevMetrics.startTime ?? endTime);
     const diff = endTime.diff(startTime, "seconds");
