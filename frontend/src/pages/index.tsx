@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import GameRow from "@/components/game-row";
 import useGameStore from "@/zustand/games-store";
-import { Star } from "lucide-react";
+import { Link, Star } from "lucide-react";
 import { useRouter } from "next/router";
 
 export default function Home() {
@@ -140,6 +140,18 @@ export default function Home() {
           );
         }
       )}
+
+      <div className="w-full items-center justify-center py-4 mt-12 px-2 relative z-10 cursor-pointer text-sm">
+        Built by{" "}
+        <a
+          href="https://x.com/prathamesh_io"
+          target="_blank"
+          className="hover:underline"
+        >
+          @prathamesh_io
+        </a>{" "}
+        on Polkadot with {" <3"}
+      </div>
     </main>
   );
 }
