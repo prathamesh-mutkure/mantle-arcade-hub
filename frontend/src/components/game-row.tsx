@@ -41,13 +41,13 @@ function GameRow({
     }, 300);
   };
 
-  const handleClick = (item: Game) => {
+  const handlePlayGame = (item: Game) => {
     const userAddr = metamaskAddress || connectedAccount?.address;
 
-    // if (!userAddr) {
-    //   alert("Please connect your wallet to play games.");
-    //   return;
-    // }
+    if (!userAddr) {
+      alert("Please connect your wallet to play games.");
+      return;
+    }
 
     router.push(`/game?id=${item.id}`);
   };
@@ -89,7 +89,7 @@ function GameRow({
             }}
           >
             {games.map((game, index) => (
-              <GameCard key={index} item={game} handleClick={handleClick} />
+              <GameCard key={index} item={game} handleClick={handlePlayGame} />
             ))}
           </div>
         </div>

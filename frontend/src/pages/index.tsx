@@ -13,13 +13,13 @@ export default function Home() {
   const { connectedAccount } = useWalletStore((state) => state);
   const { accountAddress: metamaskAddress } = useMetaMask((state) => state);
 
-  const handleClick = () => {
+  const handlePlayGame = () => {
     const userAddr = metamaskAddress || connectedAccount?.address;
 
-    // if (!userAddr) {
-    //   alert("Please connect your wallet to play games.");
-    //   return;
-    // }
+    if (!userAddr) {
+      alert("Please connect your wallet to play games.");
+      return;
+    }
 
     router.push(`/game?id=6`);
   };
@@ -84,7 +84,7 @@ export default function Home() {
                   </p>
                   <div className="flex gap-4">
                     <button
-                      onClick={() => handleClick()}
+                      onClick={() => handlePlayGame()}
                       className="relative px-8 py-4 bg-gradient-to-r from-green-400 to-cyan-400 text-black font-bold overflow-hidden group"
                     >
                       <span className="relative z-10">PRESS START</span>
