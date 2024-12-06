@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useMemo, useEffect } from "react";
 import { useWallets } from "@/providers/PolkadotWalletsContext";
 import { useWalletStore } from "@/providers/walletStoreProvider";
-import { Wallet, LogOut, ChevronDown, X } from "lucide-react";
+import { Wallet, LogOut, ChevronDown, X, Router } from "lucide-react";
 import type { BaseWallet, WalletMetadata } from "@polkadot-onboard/core";
 import { ExternalLink } from "lucide-react";
 import { extensionConfig } from "@/configs/extensionConnectConfig";
@@ -10,6 +10,7 @@ import Link from "next/link";
 import { truncatedAddress } from "@/lib/utils";
 import { truncatedAddress as truncateWalletAddr } from "@/lib/utils";
 import { useMetaMask } from "@/providers/metamask-provider";
+import { useRouter } from "next/router";
 
 const WalletModal: React.FC<{
   isOpen: boolean;
@@ -193,6 +194,7 @@ const PacmanSVG = () => (
 );
 
 const Header: React.FC = () => {
+  const router = useRouter();
   const {
     connectedWallet,
     connectedAccount,
@@ -483,7 +485,15 @@ const Header: React.FC = () => {
               </button>
             )}
 
-            <Link href="/profile">
+            <button
+              onClick={() => {
+                if (!metamaskAddr && !connectedAccount?.address) {
+                  setShowWalletModal(true);
+                  return;
+                }
+                router.push("/profile");
+              }}
+            >
               <div className="w-14 h-14 rounded-full bg-gray-700 overflow-hidden">
                 <img
                   src="/profile.jpg"
@@ -491,7 +501,7 @@ const Header: React.FC = () => {
                   className="w-full h-full object-cover"
                 />
               </div>
-            </Link>
+            </button>
           </div>
         </div>
       </div>
