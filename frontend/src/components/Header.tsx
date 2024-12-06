@@ -8,6 +8,7 @@ import { extensionConfig } from "@/configs/extensionConnectConfig";
 import { type ChainConfig, chainsConfig } from "@/configs/chainsConfig";
 import Link from "next/link";
 import { truncatedAddress } from "@/lib/utils";
+import { truncatedAddress as truncateWalletAddr } from "@/lib/utils";
 import { useMetaMask } from "@/providers/metamask-provider";
 
 const WalletModal: React.FC<{
@@ -204,7 +205,8 @@ const Header: React.FC = () => {
     changeChain,
   } = useWalletStore((state) => state);
 
-  const isMetamaskConnected = useMetaMask((state) => state.isConnected);
+  const { isConnected: isMetamaskConnected, accountAddress: metamaskAddr } =
+    useMetaMask((state) => state);
 
   const { wallets } = useWallets();
 
@@ -340,6 +342,21 @@ const Header: React.FC = () => {
           </Link>
 
           <div className="flex items-center space-x-4">
+            {isMetamaskConnected && (
+              <div>
+                <button
+                  onClick={toggleWalletModal}
+                  className="hidden md:flex relative px-6 py-3 flex-row items-center justify-center gap-2 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black font-bold transform hover:scale-105 transition-all overflow-hidden group"
+                >
+                  <Wallet size={16} className="relative z-10" />
+                  <span className="relative z-10">
+                    {truncateWalletAddr(metamaskAddr ?? "")}
+                  </span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-yellow-300 to-yellow-400 transform translate-y-full group-hover:translate-y-0 transition-transform" />
+                </button>
+              </div>
+            )}
+
             {connectedWallet?.isConnected && connectedAccount ? (
               <>
                 <div className="relative">
@@ -414,6 +431,7 @@ const Header: React.FC = () => {
 
                     <div className="absolute inset-0 bg-gradient-to-r from-pink-300 to-pink-400 transform translate-y-full group-hover:translate-y-0 transition-transform" />
                   </button>
+
                   {showAccounts && (
                     <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
                       <div className="py-1 max-h-60 overflow-auto" role="menu">
@@ -452,6 +470,8 @@ const Header: React.FC = () => {
                   )}
                 </div>
               </>
+            ) : isMetamaskConnected ? (
+              <div></div>
             ) : (
               <button
                 onClick={toggleWalletModal}

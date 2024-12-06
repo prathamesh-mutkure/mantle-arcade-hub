@@ -9,6 +9,7 @@ import { useWalletStore } from "@/providers/walletStoreProvider";
 import { Maximize2, Minimize2 } from "lucide-react";
 import { calculateGamingActivity } from "@/lib/reputation-score-helper";
 import { storeAttestationInBackend } from "@/lib/backend-helper";
+import { useMetaMask } from "@/providers/metamask-provider";
 
 interface RufflePlayerProps {
   swfUrl: string;
@@ -41,9 +42,9 @@ const RufflePlayerComponent: React.FC<RufflePlayerProps> = ({
   onEnd,
   onError,
 }) => {
-  const { connectedWallet, connectedAccount, api } = useWalletStore(
-    (state) => state
-  );
+  const { connectedAccount } = useWalletStore((state) => state);
+
+  const { accountAddress: metamaskAddress } = useMetaMask((state) => state);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const playerRef = useRef<RufflePlayer | null>(null);
@@ -215,7 +216,9 @@ const RufflePlayerComponent: React.FC<RufflePlayerProps> = ({
   }
 
   async function sendMetricsToBackend(gameMetrics: TGameMetrics) {
-    if (!connectedAccount?.address) {
+    const addressToAttest = metamaskAddress || connectedAccount?.address;
+
+    if (!addressToAttest) {
       console.log("No connected account, skipping metrics submission");
       return;
     }
@@ -241,7 +244,7 @@ const RufflePlayerComponent: React.FC<RufflePlayerProps> = ({
 
       const dataToAttest: TUserGameScoreSchema = {
         gameId: gameId,
-        userId: connectedAccount.address,
+        userId: addressToAttest,
         keyStokes: gameMetrics.keystrokes,
         mouseClicks: gameMetrics.mouseClicks,
         totalGamePlayDuration: gameMetrics.totalPlayTime,

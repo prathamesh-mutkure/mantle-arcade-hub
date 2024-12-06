@@ -10,6 +10,7 @@ import {
 import { useWalletStore } from "@/providers/walletStoreProvider";
 import { getUserStats, UserStatsResponse } from "@/lib/backend-helper";
 import { sampleGames } from "@/lib/data";
+import { useMetaMask } from "@/providers/metamask-provider";
 
 const profile = {
   name: "CryptoGamer",
@@ -47,8 +48,8 @@ const profile = {
 };
 
 const ProfilePage = () => {
-  const { isWalletConnected, connectedWallet, connectedAccount, api } =
-    useWalletStore((state) => state);
+  const { connectedAccount } = useWalletStore((state) => state);
+  const { accountAddress: metamaskAddress } = useMetaMask((state) => state);
 
   const [stats, setStats] = useState<UserStatsResponse | null>(null);
   const [loading, setLoading] = useState(true);
@@ -56,7 +57,8 @@ const ProfilePage = () => {
 
   useEffect(() => {
     async function fetchStats() {
-      if (!connectedAccount?.address) {
+      const userAddr = metamaskAddress || connectedAccount?.address;
+      if (!userAddr) {
         setStats(null);
         return;
       }
@@ -65,7 +67,7 @@ const ProfilePage = () => {
         setLoading(true);
         setError(null);
 
-        const data = await getUserStats(connectedAccount.address);
+        const data = await getUserStats(userAddr);
         setStats(data);
       } catch (err) {
         setError(err instanceof Error ? err.message : "An error occurred");
@@ -75,7 +77,7 @@ const ProfilePage = () => {
     }
 
     fetchStats();
-  }, [connectedAccount]);
+  }, [metamaskAddress, connectedAccount]);
 
   return (
     <div className="min-h-screen bg-gray-900 text-white">
@@ -102,7 +104,9 @@ const ProfilePage = () => {
               <h1 className="text-2xl font-bold">{profile.name}</h1>
               <div className="flex items-center gap-2 text-gray-400">
                 <span>
-                  {connectedAccount?.address ?? "Please connect wallet"}
+                  {metamaskAddress ??
+                    connectedAccount?.address ??
+                    "Please connect wallet"}
                 </span>
                 <ExternalLink className="w-4 h-4 cursor-pointer hover:text-white transition-colors" />
               </div>
