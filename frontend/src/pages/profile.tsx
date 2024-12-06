@@ -127,7 +127,7 @@ const ProfilePage = () => {
                 </div>
                 <span className="text-sm text-gray-400">Gamer Score</span>
               </div>
-              <div className="text-center">
+              {/* <div className="text-center">
                 <div className="flex items-center gap-2 text-blue-500">
                   <Star className="w-5 h-5" />
                   <span className="text-xl font-bold">
@@ -135,7 +135,7 @@ const ProfilePage = () => {
                   </span>
                 </div>
                 <span className="text-sm text-gray-400">Level</span>
-              </div>
+              </div> */}
             </div>
           </div>
 
