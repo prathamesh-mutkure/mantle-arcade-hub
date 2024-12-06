@@ -3,6 +3,7 @@ import type { AppProps } from "next/app";
 import { WalletStoreProvider } from "@/providers/walletStoreProvider";
 import dynamic from "next/dynamic";
 import walletAggregator from "@/providers/walletProviderAggregator";
+import { MetaMaskProvider } from "@/providers/metamask-provider";
 
 const PolkadotWalletsContextProvider = dynamic(
   () =>
@@ -18,44 +19,46 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <PolkadotWalletsContextProvider walletAggregator={walletAggregator}>
       <WalletStoreProvider>
-        <Header />
-        <Component {...pageProps} />
+        <MetaMaskProvider>
+          <Header />
+          <Component {...pageProps} />
 
-        <style jsx global>{`
-          @keyframes slide {
-            from {
-              transform: translateX(0);
+          <style jsx global>{`
+            @keyframes slide {
+              from {
+                transform: translateX(0);
+              }
+              to {
+                transform: translateX(100px);
+              }
             }
-            to {
-              transform: translateX(100px);
+
+            @keyframes blink {
+              0%,
+              100% {
+                opacity: 1;
+              }
+              50% {
+                opacity: 0;
+              }
             }
-          }
 
-          @keyframes blink {
-            0%,
-            100% {
-              opacity: 1;
+            .arcade-text {
+              text-transform: uppercase;
+              letter-spacing: 2px;
+              -webkit-text-stroke: 2px currentColor;
             }
-            50% {
-              opacity: 0;
+
+            .font-vt323 {
+              font-family: monospace;
+              letter-spacing: 1px;
             }
-          }
 
-          .arcade-text {
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            -webkit-text-stroke: 2px currentColor;
-          }
-
-          .font-vt323 {
-            font-family: monospace;
-            letter-spacing: 1px;
-          }
-
-          .animate-blink {
-            animation: blink 1s step-end infinite;
-          }
-        `}</style>
+            .animate-blink {
+              animation: blink 1s step-end infinite;
+            }
+          `}</style>
+        </MetaMaskProvider>
       </WalletStoreProvider>
     </PolkadotWalletsContextProvider>
   );

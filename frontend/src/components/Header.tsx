@@ -7,6 +7,8 @@ import { ExternalLink } from "lucide-react";
 import { extensionConfig } from "@/configs/extensionConnectConfig";
 import { type ChainConfig, chainsConfig } from "@/configs/chainsConfig";
 import Link from "next/link";
+import { truncatedAddress } from "@/lib/utils";
+import { useMetaMask } from "@/providers/metamask-provider";
 
 const WalletModal: React.FC<{
   isOpen: boolean;
@@ -23,6 +25,14 @@ const WalletModal: React.FC<{
   isConnecting,
   connectingWallet,
 }) => {
+  const {
+    connect: connectMetamask,
+    disconnect: disconnectMetamask,
+    accountAddress: metamaskAddress,
+    isConnected: isMetamaskConnected,
+    isLoading: isMetamaskLoading,
+  } = useMetaMask((state) => state);
+
   if (!isOpen) return null;
 
   const walletConnect = wallets.find((w) => w.type === "WALLET_CONNECT");
@@ -46,6 +56,30 @@ const WalletModal: React.FC<{
           >
             <X size={24} />
           </button>
+        </div>
+
+        <div className="mt-6 pt-6 border-t mb-8">
+          <h3 className="text-lg font-semibold mb-4 text-center text-black">
+            EVM / Metamask
+          </h3>
+          <div className="flex justify-center">
+            <button
+              type="button"
+              onClick={() => connectMetamask()}
+              className="flex items-center px-4 py-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600 transition duration-200"
+              disabled={isMetamaskLoading}
+            >
+              <img
+                src="/images/wallet-connect.svg"
+                alt="WalletConnect"
+                className="w-6 h-6 mr-2"
+              />
+
+              {isMetamaskConnected
+                ? truncatedAddress(metamaskAddress ?? "...")
+                : "Connect with Metamask"}
+            </button>
+          </div>
         </div>
 
         <div className="grid grid-cols-2 gap-4">

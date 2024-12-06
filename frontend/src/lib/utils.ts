@@ -5,3 +5,7 @@ export function truncateString(str: string, num: number) {
     return str;
   }
 }
+
+export function truncatedAddress(addr: string) {
+  return `${addr.slice(0, 6)}...${addr.slice(-4)}`;
+}
