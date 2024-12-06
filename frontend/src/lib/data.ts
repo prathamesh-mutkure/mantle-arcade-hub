@@ -29,16 +29,16 @@ const games: Game[] = [
     categories: ["casino", "featured"],
     type: "flash",
   },
-  {
-    id: "24",
-    name: "Slow Roads",
-    poster: "/games_images/slow_roads.png",
-    flashFile: "https://slowroads.io",
-    description: "Smash Karts",
-    featured: true,
-    categories: ["partner"],
-    type: "iframe",
-  },
+  // {
+  //   id: "24",
+  //   name: "Slow Roads",
+  //   poster: "/games_images/slow_roads.png",
+  //   flashFile: "https://slowroads.io",
+  //   description: "Slow Roads",
+  //   featured: true,
+  //   categories: ["partner"],
+  //   type: "iframe",
+  // },
   {
     id: "10",
     name: "Race Walk",
@@ -104,16 +104,16 @@ const games: Game[] = [
     categories: ["racing"],
     type: "flash",
   },
-  {
-    id: "23",
-    name: "Smash Karts",
-    poster: "/games_images/smash_kart.png",
-    flashFile: "https://smashkarts.io/",
-    description: "Smash Karts",
-    featured: true,
-    categories: ["partner"],
-    type: "iframe",
-  },
+  // {
+  //   id: "23",
+  //   name: "Smash Karts",
+  //   poster: "/games_images/smash_kart.png",
+  //   flashFile: "https://smashkarts.io/",
+  //   description: "Smash Karts",
+  //   featured: true,
+  //   categories: ["partner"],
+  //   type: "iframe",
+  // },
 ];
 
 export const sampleGames: Game[] = [...games];

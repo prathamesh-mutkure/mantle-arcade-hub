@@ -157,7 +157,7 @@ export default function Home() {
         }
       )}
 
-      <div className="w-full items-center justify-center py-4 mt-12 px-2 relative z-10 cursor-pointer text-sm">
+      <div className="w-full text-center items-center justify-center py-4 mt-12 px-2 relative z-10 cursor-pointer text-sm">
         Built by{" "}
         <a
           href="https://x.com/prathamesh_io"
