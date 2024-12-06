@@ -11,6 +11,7 @@ import { useWalletStore } from "@/providers/walletStoreProvider";
 import { getUserStats, UserStatsResponse } from "@/lib/backend-helper";
 import { sampleGames } from "@/lib/data";
 import { useMetaMask } from "@/providers/metamask-provider";
+import { truncatedAddress } from "@/lib/utils";
 
 const profile = {
   name: "CryptoGamer",
@@ -104,8 +105,11 @@ const ProfilePage = () => {
               <h1 className="text-2xl font-bold">{profile.name}</h1>
               <div className="flex items-center gap-2 text-gray-400">
                 <span>
-                  {metamaskAddress ??
-                    connectedAccount?.address ??
+                  {metamaskAddress && truncatedAddress(metamaskAddress)}
+                  {connectedAccount?.address &&
+                    truncatedAddress(connectedAccount?.address)}
+                  {!metamaskAddress &&
+                    !connectedAccount?.address &&
                     "Please connect wallet"}
                 </span>
                 <ExternalLink className="w-4 h-4 cursor-pointer hover:text-white transition-colors" />
