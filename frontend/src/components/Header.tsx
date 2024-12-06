@@ -58,6 +58,7 @@ const WalletModal: React.FC<{
           </button>
         </div>
 
+        {/* Metamask */}
         <div className="mt-6 pt-6 border-t mb-8">
           <h3 className="text-lg font-semibold mb-4 text-center text-black">
             EVM / Metamask
@@ -65,7 +66,9 @@ const WalletModal: React.FC<{
           <div className="flex justify-center">
             <button
               type="button"
-              onClick={() => connectMetamask()}
+              onClick={() => {
+                isMetamaskConnected ? disconnectMetamask() : connectMetamask();
+              }}
               className="flex items-center px-4 py-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600 transition duration-200"
               disabled={isMetamaskLoading}
             >
@@ -110,8 +113,12 @@ const WalletModal: React.FC<{
                         ) as BaseWallet
                       )
                     }
-                    className="mt-2 px-3 py-1 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition duration-200"
-                    disabled={isConnecting}
+                    className={`mt-2 px-3 py-1 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition duration-200 ${
+                      isMetamaskConnected
+                        ? "opacity-50 cursor-not-allowed:"
+                        : ""
+                    }`}
+                    disabled={isConnecting || isMetamaskConnected}
                   >
                     Connect
                   </button>
@@ -135,7 +142,8 @@ const WalletModal: React.FC<{
           })}
         </div>
 
-        {walletConnect && (
+        {/* TODO: Fix wallet connect */}
+        {false && walletConnect && (
           <div className="mt-6 pt-6 border-t">
             <h3 className="text-lg font-semibold mb-4 text-center text-black">
               Other Connection Methods
@@ -145,7 +153,7 @@ const WalletModal: React.FC<{
                 type="button"
                 onClick={() => onSelectWallet(walletConnect)}
                 className="flex items-center px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-200"
-                disabled={isConnecting}
+                disabled={isConnecting || isMetamaskConnected}
               >
                 <img
                   src="/images/wallet-connect.svg"
@@ -195,6 +203,8 @@ const Header: React.FC = () => {
     currentChain,
     changeChain,
   } = useWalletStore((state) => state);
+
+  const isMetamaskConnected = useMetaMask((state) => state.isConnected);
 
   const { wallets } = useWallets();
 
@@ -337,7 +347,7 @@ const Header: React.FC = () => {
                     type="button"
                     onClick={() => setShowChains(!showChains)}
                     className="relative hidden md:flex flex-row items-center gap-2 px-6 py-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black font-bold transform hover:scale-105 transition-all overflow-hidden group"
-                    disabled={isChangingChain}
+                    disabled={isChangingChain || isMetamaskConnected}
                   >
                     <img
                       src={currentChain?.logo || "/images/polkadot-logo.svg"}
