@@ -43,14 +43,18 @@ const RufflePlayerComponent: React.FC<RufflePlayerProps> = ({
   onError,
 }) => {
   const { connectedAccount } = useWalletStore((state) => state);
-
   const { accountAddress: metamaskAddress } = useMetaMask((state) => state);
+  const addrRef = useRef<string | null>(null);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const playerRef = useRef<RufflePlayer | null>(null);
 
   const isGameActiveRef = useRef(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
+
+  useEffect(() => {
+    addrRef.current = metamaskAddress ?? null;
+  }, [metamaskAddress]);
 
   const metricsRef = useRef<TGameMetrics>({
     startTime: null,
@@ -216,7 +220,7 @@ const RufflePlayerComponent: React.FC<RufflePlayerProps> = ({
   }
 
   async function sendMetricsToBackend(gameMetrics: TGameMetrics) {
-    const addressToAttest = metamaskAddress || connectedAccount?.address;
+    const addressToAttest = addrRef.current || connectedAccount?.address;
 
     if (!addressToAttest) {
       console.log("No connected account, skipping metrics submission");

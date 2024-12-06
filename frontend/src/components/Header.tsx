@@ -74,9 +74,9 @@ const WalletModal: React.FC<{
               disabled={isMetamaskLoading}
             >
               <img
-                src="/images/wallet-connect.svg"
+                src="/images/metamask.svg"
                 alt="WalletConnect"
-                className="w-6 h-6 mr-2"
+                className="w-4 h-4 mr-2"
               />
 
               {isMetamaskConnected
@@ -152,7 +152,7 @@ const WalletModal: React.FC<{
             <div className="flex justify-center">
               <button
                 type="button"
-                onClick={() => onSelectWallet(walletConnect)}
+                onClick={() => onSelectWallet(walletConnect!)}
                 className="flex items-center px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-200"
                 disabled={isConnecting || isMetamaskConnected}
               >
