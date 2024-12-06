@@ -16,10 +16,10 @@ export default function Home() {
   const handleClick = () => {
     const userAddr = metamaskAddress || connectedAccount?.address;
 
-    if (!userAddr) {
-      alert("Please connect your wallet to play games.");
-      return;
-    }
+    // if (!userAddr) {
+    //   alert("Please connect your wallet to play games.");
+    //   return;
+    // }
 
     router.push(`/game?id=6`);
   };
