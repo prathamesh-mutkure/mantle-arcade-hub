@@ -12,7 +12,7 @@ export default function Document() {
           content="DotCade is a gaming platform for arcade games with a decentralised digital gaming ID shared across games"
         />
 
-        <meta property="og:url" content="https://dotcade-polkadot.vercel.app" />
+        <meta property="og:url" content="https://dotcade.fun" />
         <meta property="og:type" content="website" />
         <meta
           property="og:title"
@@ -42,22 +42,22 @@ export default function Document() {
           name="twitter:image"
           content="https://opengraph.b-cdn.net/production/images/c895cd6e-078b-4cf4-a59d-093dd8433139.png?token=sCLW5L41Yz_sHT_N0CEmU5qzH6IZcOFwt9q6UeCxa_Y&height=642&width=1200&expires=33269184517"
         />
+      </Head>
 
-        <Script
-          async={true}
-          src="https://www.googletagmanager.com/gtag/js?id=G-9SSE6ELV91"
-        />
-        <Script
-          dangerouslySetInnerHTML={{
-            __html: `
+      <Script
+        async={true}
+        src="https://www.googletagmanager.com/gtag/js?id=G-9SSE6ELV91"
+      />
+      <Script
+        dangerouslySetInnerHTML={{
+          __html: `
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
               gtag('config', 'G-9SSE6ELV91');
             `,
-          }}
-        />
-      </Head>
+        }}
+      />
       <GoogleAnalytics gaId="G-9SSE6ELV91" />
 
       <body className="antialiased">
