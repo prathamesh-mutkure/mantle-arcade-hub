@@ -4,6 +4,7 @@ import { WalletStoreProvider } from "@/providers/walletStoreProvider";
 import dynamic from "next/dynamic";
 import walletAggregator from "@/providers/walletProviderAggregator";
 import { MetaMaskProvider } from "@/providers/metamask-provider";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const PolkadotWalletsContextProvider = dynamic(
   () =>
@@ -22,6 +23,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <MetaMaskProvider>
           <Header />
           <Component {...pageProps} />
+          <GoogleAnalytics gaId="G-9SSE6ELV91" />
 
           <style jsx global>{`
             @keyframes slide {
