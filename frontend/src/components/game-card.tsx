@@ -34,7 +34,12 @@ function GameCard({
             }}
           />
         </div>
-        <h4 className="text-xl font-bold text-white mb-2">{item.name}</h4>
+        <h4
+          className="text-xl font-bold text-white mb-2 truncate whitespace-nowrap overflow-hidden"
+          title={item.name}
+        >
+          {item.name}
+        </h4>
         <p className="text-green-400 text-sm font-vt323">{"1000"}</p>
         <button
           onClick={() => handleClick(item)}

@@ -1,4 +1,5 @@
 const games: Game[] = [
+  /* Arcade Games */
   {
     id: "6",
     name: "Flabby Physics",
@@ -6,7 +7,7 @@ const games: Game[] = [
     flashFile: "/games/flabby_physics.swf",
     description: "Test your luck and skill in this poker game.",
     featured: true,
-    categories: ["casino", "arcade"],
+    categories: ["arcade"],
     type: "flash",
   },
   {
@@ -14,6 +15,16 @@ const games: Game[] = [
     name: "Pacman",
     poster: "/games_images/pacman.png",
     flashFile: "/games/pacman.swf",
+    description: "Test your luck and skill in this poker game.",
+    categories: ["arcade"],
+    type: "flash",
+    featured: true,
+  },
+  {
+    id: "26",
+    name: "Santa and the Lost Gifts",
+    poster: "/games_images/santalost.png",
+    flashFile: "/games/santalost.swf",
     description: "Test your luck and skill in this poker game.",
     categories: ["arcade"],
     type: "flash",
@@ -30,6 +41,17 @@ const games: Game[] = [
     type: "flash",
   },
   {
+    id: "17",
+    name: "Ice Punch",
+    poster: "/games_images/ice_punch.png",
+    flashFile: "/games/Ice Punch.swf",
+    description: "Test your luck and skill in this poker game.",
+    categories: ["arcade"],
+    type: "flash",
+  },
+
+  /* Casino */
+  {
     id: "0",
     name: "4 Table Poker",
     poster: "/games_images/poker.png",
@@ -39,25 +61,19 @@ const games: Game[] = [
     categories: ["casino", "featured"],
     type: "flash",
   },
-  // {
-  //   id: "24",
-  //   name: "Slow Roads",
-  //   poster: "/games_images/slow_roads.png",
-  //   flashFile: "https://slowroads.io",
-  //   description: "Slow Roads",
-  //   featured: true,
-  //   categories: ["partner"],
-  //   type: "iframe",
-  // },
+
+  /* Adventure */
   {
-    id: "10",
-    name: "Race Walk",
-    poster: "/games_images/racewalk.png",
-    flashFile: "/games/racewalk.swf",
+    id: "16",
+    name: "Get Lost",
+    poster: "/games_images/get_lost.png",
+    flashFile: "/games/Get Lost.swf",
     description: "Test your luck and skill in this poker game.",
-    categories: ["racing"],
+    categories: ["adventure"],
     type: "flash",
   },
+
+  /* Action */
   {
     id: "13",
     name: "Age of War",
@@ -67,34 +83,8 @@ const games: Game[] = [
     categories: ["action"],
     type: "flash",
   },
-  {
-    id: "14",
-    name: "Dice Wars",
-    poster: "/games_images/dice_wars.png",
-    flashFile: "/games/Dice-Wars.swf",
-    description: "Test your luck and skill in this poker game.",
-    categories: ["casino"],
-    type: "flash",
-  },
-  {
-    id: "16",
-    name: "Get Lost",
-    poster: "/games_images/get_lost.png",
-    flashFile: "/games/Get Lost.swf",
-    description: "Test your luck and skill in this poker game.",
-    categories: ["adventure", "strategy", "arcade"],
-    type: "flash",
-  },
-  {
-    id: "17",
-    name: "Ice Punch",
-    poster: "/games_images/ice_punch.png",
-    flashFile: "/games/Ice Punch.swf",
-    description: "Test your luck and skill in this poker game.",
-    categories: ["arcade"],
-    featured: true,
-    type: "flash",
-  },
+
+  /* Race */
   {
     id: "20",
     name: "Coaster Racer",
@@ -114,6 +104,38 @@ const games: Game[] = [
     categories: ["racing"],
     type: "flash",
   },
+  {
+    id: "10",
+    name: "Race Walk",
+    poster: "/games_images/racewalk.png",
+    flashFile: "/games/racewalk.swf",
+    description: "Test your luck and skill in this poker game.",
+    categories: ["racing"],
+    type: "flash",
+  },
+
+  /* Other */
+  {
+    id: "14",
+    name: "Dice Wars",
+    poster: "/games_images/dice_wars.png",
+    flashFile: "/games/Dice-Wars.swf",
+    description: "Test your luck and skill in this poker game.",
+    categories: ["other"],
+    type: "flash",
+  },
+
+  /* Partner Games */
+  // {
+  //   id: "24",
+  //   name: "Slow Roads",
+  //   poster: "/games_images/slow_roads.png",
+  //   flashFile: "https://slowroads.io",
+  //   description: "Slow Roads",
+  //   featured: true,
+  //   categories: ["partner"],
+  //   type: "iframe",
+  // },
   // {
   //   id: "23",
   //   name: "Smash Karts",
@@ -124,16 +146,6 @@ const games: Game[] = [
   //   categories: ["partner"],
   //   type: "iframe",
   // },
-  {
-    id: "26",
-    name: "Santa and the Lost Gifts",
-    poster: "/games_images/santalost.png",
-    flashFile: "/games/santalost.swf",
-    description: "Test your luck and skill in this poker game.",
-    categories: ["arcade"],
-    type: "flash",
-    featured: true,
-  },
 ];
 
 export const sampleGames: Game[] = [...games];

@@ -26,9 +26,10 @@ export default function Home() {
 
   const categorizedGames = {
     featured: games.filter((game) => game.featured),
+    arcade: games.filter((game) => game.categories.includes("arcade")),
+    partner: games.filter((game) => game.categories.includes("partner")),
     action: games.filter((game) => game.categories.includes("action")),
     adventure: games.filter((game) => game.categories.includes("adventure")),
-    arcade: games.filter((game) => game.categories.includes("arcade")),
     puzzle: games.filter((game) => game.categories.includes("puzzle")),
     strategy: games.filter((game) => game.categories.includes("strategy")),
     sports: games.filter((game) => game.categories.includes("sports")),
@@ -36,7 +37,6 @@ export default function Home() {
     simulation: games.filter((game) => game.categories.includes("simulation")),
     casino: games.filter((game) => game.categories.includes("casino")),
     other: games.filter((game) => game.categories.includes("other")),
-    partner: games.filter((game) => game.categories.includes("partner")),
   };
 
   return (
