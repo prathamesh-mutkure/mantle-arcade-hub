@@ -21,36 +21,13 @@ const profile = {
   badges: [
     { id: 1, name: "Early Adopter", icon: "🏆" },
     { id: 2, name: "Beta Tester", icon: "⭐" },
-    // { id: 3, name: "Champion", icon: "🏅" },
-  ],
-  games: [
-    {
-      id: 1,
-      name: "4 Table Poker",
-      score: 1250,
-      level: 8,
-      lastPlayed: "2024-03-01",
-    },
-    {
-      id: 2,
-      name: "Blobby Physics",
-      score: 890,
-      level: 5,
-      lastPlayed: "2024-02-28",
-    },
-    {
-      id: 3,
-      name: "Character Quest",
-      score: 2100,
-      level: 12,
-      lastPlayed: "2024-02-25",
-    },
   ],
 };
 
 const ProfilePage = () => {
   const { connectedAccount } = useWalletStore((state) => state);
   const { accountAddress: metamaskAddress } = useMetaMask((state) => state);
+  const [accountName, setAccountName] = useState("");
 
   const [stats, setStats] = useState<UserStatsResponse | null>(null);
   const [loading, setLoading] = useState(true);
@@ -59,6 +36,7 @@ const ProfilePage = () => {
   useEffect(() => {
     async function fetchStats() {
       const userAddr = metamaskAddress || connectedAccount?.address;
+
       if (!userAddr) {
         setStats(null);
         return;
@@ -78,6 +56,22 @@ const ProfilePage = () => {
     }
 
     fetchStats();
+  }, [metamaskAddress, connectedAccount]);
+
+  useEffect(() => {
+    function getAccountName() {
+      if (metamaskAddress) return truncatedAddress(metamaskAddress);
+
+      if (connectedAccount) {
+        return (
+          connectedAccount?.name ?? truncatedAddress(connectedAccount.address)
+        );
+      }
+
+      return "Please connect wallet";
+    }
+
+    setAccountName(getAccountName());
   }, [metamaskAddress, connectedAccount]);
 
   return (
@@ -102,7 +96,7 @@ const ProfilePage = () => {
 
             {/* User Info */}
             <div className="flex-grow">
-              <h1 className="text-2xl font-bold">{profile.name}</h1>
+              <h1 className="text-2xl font-bold">{accountName}</h1>
               <div className="flex items-center gap-2 text-gray-400">
                 <span>
                   {metamaskAddress && truncatedAddress(metamaskAddress)}
