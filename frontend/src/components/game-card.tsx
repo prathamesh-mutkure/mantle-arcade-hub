@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Smartphone } from "lucide-react";
 
 function GameCard({
   item,
@@ -19,6 +20,14 @@ function GameCard({
       <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 transform skew-x-12 translate-x-full group-hover:translate-x-0 transition-transform duration-300" />
       <div className="relative bg-black border-4 border-purple-500 p-4">
         <div className="relative">
+          {item.isMobileFriendly && (
+            <div className="absolute top-2 right-2 z-10 inline-flex items-center gap-1 bg-yellow-400 backdrop-blur-sm px-3 py-1 rounded-full border border-white">
+              <Smartphone className="w-4 h-4 text-black" />
+              {/* <span className="text-black text-sm font-vt323">
+                Mobile Friendly
+              </span> */}
+            </div>
+          )}
           <img
             src={item.poster}
             alt={item.name}
@@ -40,7 +49,6 @@ function GameCard({
         >
           {item.name}
         </h4>
-        <p className="text-green-400 text-sm font-vt323">{"1000"}</p>
         <button
           onClick={() => handleClick(item)}
           className="mt-4 w-full px-4 py-2 bg-gradient-to-r from-cyan-400 to-blue-400 text-black font-bold transform group-hover:scale-105 transition-transform"

@@ -9,6 +9,7 @@ const games: Game[] = [
     featured: true,
     categories: ["arcade"],
     type: "flash",
+    isMobileFriendly: false,
   },
   {
     id: "25",
@@ -19,16 +20,7 @@ const games: Game[] = [
     categories: ["arcade"],
     type: "flash",
     featured: true,
-  },
-  {
-    id: "26",
-    name: "Santa and the Lost Gifts",
-    poster: "/games_images/santalost.png",
-    flashFile: "/games/santalost.swf",
-    description: "Test your luck and skill in this poker game.",
-    categories: ["arcade"],
-    type: "flash",
-    featured: true,
+    isMobileFriendly: false,
   },
   {
     id: "18",
@@ -39,6 +31,18 @@ const games: Game[] = [
     featured: true,
     categories: ["arcade"],
     type: "flash",
+    isMobileFriendly: true,
+  },
+  {
+    id: "26",
+    name: "Santa and the Lost Gifts",
+    poster: "/games_images/santalost.png",
+    flashFile: "/games/santalost.swf",
+    description: "Test your luck and skill in this poker game.",
+    categories: ["arcade"],
+    type: "flash",
+    featured: true,
+    isMobileFriendly: false,
   },
   {
     id: "17",
@@ -48,6 +52,7 @@ const games: Game[] = [
     description: "Test your luck and skill in this poker game.",
     categories: ["arcade"],
     type: "flash",
+    isMobileFriendly: true,
   },
 
   /* Casino */
@@ -60,6 +65,7 @@ const games: Game[] = [
     featured: true,
     categories: ["casino", "featured"],
     type: "flash",
+    isMobileFriendly: true,
   },
 
   /* Adventure */
@@ -71,6 +77,7 @@ const games: Game[] = [
     description: "Test your luck and skill in this poker game.",
     categories: ["adventure"],
     type: "flash",
+    isMobileFriendly: false,
   },
 
   /* Action */
@@ -82,6 +89,7 @@ const games: Game[] = [
     description: "Test your luck and skill in this poker game.",
     categories: ["action"],
     type: "flash",
+    isMobileFriendly: true,
   },
 
   /* Race */
@@ -94,6 +102,7 @@ const games: Game[] = [
     featured: true,
     categories: ["racing"],
     type: "flash",
+    isMobileFriendly: false,
   },
   {
     id: "21",
@@ -103,6 +112,7 @@ const games: Game[] = [
     description: "Test your luck and skill in this poker game.",
     categories: ["racing"],
     type: "flash",
+    isMobileFriendly: false,
   },
   {
     id: "10",
@@ -112,6 +122,7 @@ const games: Game[] = [
     description: "Test your luck and skill in this poker game.",
     categories: ["racing"],
     type: "flash",
+    isMobileFriendly: false,
   },
 
   /* Other */
@@ -123,6 +134,7 @@ const games: Game[] = [
     description: "Test your luck and skill in this poker game.",
     categories: ["other"],
     type: "flash",
+    isMobileFriendly: true,
   },
 
   /* Partner Games */

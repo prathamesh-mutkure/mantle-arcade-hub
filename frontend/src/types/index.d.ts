@@ -20,5 +20,6 @@ type Game = {
   categories: TGameCategory[];
   description: string;
   featured?: boolean;
+  isMobileFriendly: boolean;
   type: "flash" | "iframe";
 };
