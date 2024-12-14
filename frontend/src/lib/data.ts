@@ -94,6 +94,17 @@ const games: Game[] = [
 
   /* Race */
   {
+    id: "27",
+    name: "Pumpkin Head Rider",
+    poster: "/games_images/pumpkin-rider.png",
+    flashFile: "/games/pumpkin-rider.swf",
+    description: "Test your luck and skill in this poker game.",
+    featured: true,
+    categories: ["racing"],
+    type: "flash",
+    isMobileFriendly: false,
+  },
+  {
     id: "20",
     name: "Coaster Racer",
     poster: "/games_images/coaster_racer.png",
