@@ -10,6 +10,16 @@ const games: Game[] = [
     type: "flash",
   },
   {
+    id: "25",
+    name: "Pacman",
+    poster: "/games_images/pacman.png",
+    flashFile: "/games/pacman.swf",
+    description: "Test your luck and skill in this poker game.",
+    categories: ["arcade"],
+    type: "flash",
+    featured: true,
+  },
+  {
     id: "18",
     name: "Missile",
     poster: "/games_images/missile.png",
