@@ -77,10 +77,10 @@ export default function Home() {
                     TRENDING
                   </div>
                   <h2 className="text-6xl font-black text-white mb-6 arcade-text">
-                    Flappy Physics
+                    Flabby Physics
                   </h2>
                   <p className="text-green-400 text-xl mb-8 font-vt323">
-                    CAN YOU BEAT THE FLAPPY PHYSICS__
+                    CAN YOU BEAT THE FLABBY PHYSICS__
                     <span className="animate-blink">_</span>
                   </p>
                   <div className="flex gap-4">
