@@ -11,7 +11,7 @@ import { useWalletStore } from "@/providers/walletStoreProvider";
 import { getUserStats, UserStatsResponse } from "@/lib/backend-helper";
 import { sampleGames } from "@/lib/data";
 import { useMetaMask } from "@/providers/metamask-provider";
-import { truncatedAddress } from "@/lib/utils";
+import { generateRandomImageUrl, truncatedAddress } from "@/lib/utils";
 
 const profile = {
   name: "CryptoGamer",
@@ -84,7 +84,9 @@ const ProfilePage = () => {
             <div className="relative">
               <div className="w-24 h-24 rounded-full bg-gray-700 overflow-hidden">
                 <img
-                  src="/profile.jpg"
+                  src={generateRandomImageUrl(
+                    metamaskAddress ?? connectedAccount?.address
+                  )}
                   alt="Profile"
                   className="w-full h-full object-cover"
                 />

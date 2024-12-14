@@ -7,7 +7,7 @@ import { ExternalLink } from "lucide-react";
 import { extensionConfig } from "@/configs/extensionConnectConfig";
 import { type ChainConfig, chainsConfig } from "@/configs/chainsConfig";
 import Link from "next/link";
-import { truncatedAddress } from "@/lib/utils";
+import { generateRandomImageUrl, truncatedAddress } from "@/lib/utils";
 import { truncatedAddress as truncateWalletAddr } from "@/lib/utils";
 import { useMetaMask } from "@/providers/metamask-provider";
 import { useRouter } from "next/router";
@@ -496,7 +496,9 @@ const Header: React.FC = () => {
             >
               <div className="w-14 h-14 rounded-full bg-gray-700 overflow-hidden">
                 <img
-                  src="/profile.jpg"
+                  src={generateRandomImageUrl(
+                    metamaskAddr ?? connectedAccount?.address
+                  )}
                   alt="Profile"
                   className="w-full h-full object-cover"
                 />
