@@ -27,6 +27,7 @@ export default function Home() {
   const categorizedGames = {
     featured: games.filter((game) => game.featured),
     arcade: games.filter((game) => game.categories.includes("arcade")),
+    mobile: games.filter((game) => game.isMobileFriendly),
     partner: games.filter((game) => game.categories.includes("partner")),
     action: games.filter((game) => game.categories.includes("action")),
     adventure: games.filter((game) => game.categories.includes("adventure")),
@@ -136,12 +137,21 @@ export default function Home() {
         />
       )}
 
+      {categorizedGames.mobile.length > 0 && (
+        <GameRow
+          rowId="mobile"
+          title="Mobile Friendly"
+          games={categorizedGames.mobile}
+        />
+      )}
+
       {Object.entries(categorizedGames).map(
         ([category, categoryGames], index) => {
           // Skip featured category as it's already shown and empty categories
           if (
             category === "featured" ||
             category === "partner games" ||
+            category == "mobile" ||
             categoryGames.length === 0
           )
             return null;
