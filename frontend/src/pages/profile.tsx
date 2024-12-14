@@ -167,8 +167,8 @@ const ProfilePage = () => {
                     <h3 className="font-bold">{gameInfo?.name}</h3>
 
                     <div className="flex items-center gap-2 text-green-500">
-                      <Star className="w-4 h-4" />
-                      <span className="font-bold">{3}</span>
+                      <Clock className="w-4 h-4" />
+                      <span>{game.stats.plays}</span>
                     </div>
                   </div>
 
@@ -176,11 +176,6 @@ const ProfilePage = () => {
                     <div className="flex items-center gap-2">
                       <Gamepad2 className="w-4 h-4" />
                       <span>{game.gamingActivity} pts</span>
-                    </div>
-
-                    <div className="flex items-center gap-2">
-                      <Clock className="w-4 h-4" />
-                      <span>{game.stats.plays}</span>
                     </div>
                   </div>
                 </div>
