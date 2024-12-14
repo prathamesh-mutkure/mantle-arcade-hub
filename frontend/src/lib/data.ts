@@ -124,6 +124,16 @@ const games: Game[] = [
   //   categories: ["partner"],
   //   type: "iframe",
   // },
+  {
+    id: "26",
+    name: "Santa and the Lost Gifts",
+    poster: "/games_images/santalost.png",
+    flashFile: "/games/santalost.swf",
+    description: "Test your luck and skill in this poker game.",
+    categories: ["arcade"],
+    type: "flash",
+    featured: true,
+  },
 ];
 
 export const sampleGames: Game[] = [...games];
