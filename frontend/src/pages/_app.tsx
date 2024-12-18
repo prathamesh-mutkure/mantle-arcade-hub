@@ -6,7 +6,7 @@ import walletAggregator from "@/providers/walletProviderAggregator";
 import { MetaMaskProvider } from "@/providers/metamask-provider";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { http, createConfig, WagmiProvider } from "wagmi";
-import { mainnet, sepolia } from "wagmi/chains";
+import { mantleSepoliaTestnet } from "viem/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { injected, metaMask } from "wagmi/connectors";
 
@@ -22,10 +22,9 @@ const Header = dynamic(() => import("@/components/Header"), { ssr: false });
 
 export const config = createConfig({
   connectors: [injected(), metaMask()],
-  chains: [mainnet, sepolia],
+  chains: [mantleSepoliaTestnet],
   transports: {
-    [mainnet.id]: http(),
-    [sepolia.id]: http(),
+    [mantleSepoliaTestnet.id]: http(),
   },
 });
 
