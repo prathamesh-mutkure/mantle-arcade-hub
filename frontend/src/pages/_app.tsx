@@ -20,7 +20,7 @@ const PolkadotWalletsContextProvider = dynamic(
 
 const Header = dynamic(() => import("@/components/Header"), { ssr: false });
 
-export const config = createConfig({
+const config = createConfig({
   connectors: [injected(), metaMask()],
   chains: [mantleSepoliaTestnet],
   transports: {
