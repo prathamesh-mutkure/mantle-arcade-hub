@@ -5,6 +5,10 @@ import dynamic from "next/dynamic";
 import walletAggregator from "@/providers/walletProviderAggregator";
 import { MetaMaskProvider } from "@/providers/metamask-provider";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { http, createConfig, WagmiProvider } from "wagmi";
+import { mainnet, sepolia } from "wagmi/chains";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { injected, metaMask } from "wagmi/connectors";
 
 const PolkadotWalletsContextProvider = dynamic(
   () =>
@@ -16,50 +20,65 @@ const PolkadotWalletsContextProvider = dynamic(
 
 const Header = dynamic(() => import("@/components/Header"), { ssr: false });
 
+export const config = createConfig({
+  connectors: [injected(), metaMask()],
+  chains: [mainnet, sepolia],
+  transports: {
+    [mainnet.id]: http(),
+    [sepolia.id]: http(),
+  },
+});
+
 export default function App({ Component, pageProps }: AppProps) {
+  const queryClient = new QueryClient();
+
   return (
     <PolkadotWalletsContextProvider walletAggregator={walletAggregator}>
       <WalletStoreProvider>
         <MetaMaskProvider>
-          <Header />
-          <Component {...pageProps} />
-          <GoogleAnalytics gaId="G-9SSE6ELV91" />
+          <WagmiProvider config={config}>
+            <QueryClientProvider client={queryClient}>
+              <Header />
+              <Component {...pageProps} />
+              <GoogleAnalytics gaId="G-9SSE6ELV91" />
 
-          <style jsx global>{`
-            @keyframes slide {
-              from {
-                transform: translateX(0);
-              }
-              to {
-                transform: translateX(100px);
-              }
-            }
+              <style jsx global>{`
+                @keyframes slide {
+                  from {
+                    transform: translateX(0);
+                  }
+                  to {
+                    transform: translateX(100px);
+                  }
+                }
 
-            @keyframes blink {
-              0%,
-              100% {
-                opacity: 1;
-              }
-              50% {
-                opacity: 0;
-              }
-            }
+                @keyframes blink {
+                  0%,
+                  100% {
+                    opacity: 1;
+                  }
+                  50% {
+                    opacity: 0;
+                  }
+                }
 
-            .arcade-text {
-              text-transform: uppercase;
-              letter-spacing: 2px;
-              -webkit-text-stroke: 2px currentColor;
-            }
+                .arcade-text {
+                  text-transform: uppercase;
+                  letter-spacing: 2px;
+                  -webkit-text-stroke: 2px currentColor;
+                }
 
-            .font-vt323 {
-              font-family: monospace;
-              letter-spacing: 1px;
-            }
+                .font-vt323 {
+                  font-family: monospace;
+                  letter-spacing: 1px;
+                }
 
-            .animate-blink {
-              animation: blink 1s step-end infinite;
-            }
-          `}</style>
+                .animate-blink {
+                  animation: blink 1s step-end infinite;
+                }
+              `}</style>
+            </QueryClientProvider>
+          </WagmiProvider>
         </MetaMaskProvider>
       </WalletStoreProvider>
     </PolkadotWalletsContextProvider>
