@@ -4,21 +4,21 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        <title>DotCade - OnChain Games Powered by Polkadot</title>
+        <title>PlayMantle - OnChain Games Powered by Mantle</title>
         <meta
           name="description"
-          content="DotCade is a gaming platform for arcade games with a decentralised digital gaming ID shared across games"
+          content="PlayMantle is a gaming platform for arcade games with a decentralised digital gaming ID shared across games"
         />
 
         <meta property="og:url" content="https://dotcade.fun" />
         <meta property="og:type" content="website" />
         <meta
           property="og:title"
-          content="DotCade - OnChain Games Powered by Polkadot"
+          content="PlayMantle - OnChain Games Powered by Mantle"
         />
         <meta
           property="og:description"
-          content="DotCade is a gaming platform for arcade games with a decentralised digital gaming ID shared across games"
+          content="PlayMantle is a gaming platform for arcade games with a decentralised digital gaming ID shared across games"
         />
         <meta
           property="og:image"
@@ -30,11 +30,11 @@ export default function Document() {
         <meta property="twitter:url" content="https://dotcade.fun" />
         <meta
           name="twitter:title"
-          content="DotCade - OnChain Games Powered by Polkadot"
+          content="PlayMantle - OnChain Games Powered by Mantle"
         />
         <meta
           name="twitter:description"
-          content="DotCade is a gaming platform for arcade games with a decentralised digital gaming ID shared across games"
+          content="PlayMantle is a gaming platform for arcade games with a decentralised digital gaming ID shared across games"
         />
         <meta
           name="twitter:image"

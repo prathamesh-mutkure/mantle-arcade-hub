@@ -338,7 +338,7 @@ const Header: React.FC = () => {
                   `,
                 }}
               >
-                .CADE
+                PlayMantle
               </h1>
             </div>
           </Link>
