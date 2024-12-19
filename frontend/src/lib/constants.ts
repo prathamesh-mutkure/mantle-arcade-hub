@@ -1,2 +1,4 @@
 export const TRUE_NETWORK_SECRET_KEY =
   process.env.NEXT_PUBLIC_TRUE_NETWORK_SECRET_KEY!;
+
+export const DYNAMIC_ENV_ID = process.env.NEXT_PUBLIC_DYNAMIC_ENV_ID!;

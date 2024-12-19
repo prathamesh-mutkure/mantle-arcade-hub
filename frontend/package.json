@@ -10,6 +10,9 @@
     "postinstall": "pnpx prisma generate"
   },
   "dependencies": {
+    "@dynamic-labs/ethereum": "^3.9.4",
+    "@dynamic-labs/sdk-react-core": "^3.9.4",
+    "@dynamic-labs/wagmi-connector": "^3.9.4",
     "@next/third-parties": "^15.0.3",
     "@polkadot-onboard/core": "^1.1.0",
     "@polkadot-onboard/injected-wallets": "^1.1.0",
