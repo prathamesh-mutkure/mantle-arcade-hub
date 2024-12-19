@@ -28,12 +28,12 @@ export default function GameUploadPage() {
     isMobileFriendly: boolean;
     gameType: TGameType;
   }>({
-    id: "",
-    name: "",
-    poster: "",
-    flashFile: "",
-    categories: [],
-    description: "",
+    id: "20",
+    name: "Flappy Physics 2",
+    poster: "/games_images/flappy_physics.png",
+    flashFile: "/games/flabby_physics.swf",
+    categories: ["Arcade"],
+    description: "Flappy Physics 2",
     isMobileFriendly: false,
     gameType: "Flash",
   });
@@ -46,7 +46,9 @@ export default function GameUploadPage() {
 
   return (
     <div className="min-h-screen w-full flex flex-col items-center bg-[#1a1b2e] text-white p-8">
-      <h1 className="text-4xl font-bold mb-8">Upload New Game</h1>
+      <h1 className="text-3xl font-black text-yellow-400 mb-8 arcade-text">
+        Upload New Game
+      </h1>
 
       <form onSubmit={handleSubmit} className="max-w-2xl space-y-6">
         <div className="space-y-4">
@@ -74,11 +76,12 @@ export default function GameUploadPage() {
 
           <div>
             <label className="block text-sm font-medium mb-2">
-              Game File (SWF/HTML)
+              Game File URL (.swf)
             </label>
             <input
-              type="file"
+              type="text"
               className="w-full px-4 py-2 rounded bg-[#2a2b3e] border border-[#3a3b4e] focus:outline-none focus:border-pink-500"
+              value={formData.flashFile}
               onChange={(e) =>
                 setFormData({ ...formData, flashFile: e.target.value })
               }
@@ -87,11 +90,12 @@ export default function GameUploadPage() {
 
           <div>
             <label className="block text-sm font-medium mb-2">
-              Poster Image
+              Poster Image URL
             </label>
             <input
-              type="file"
+              type="text"
               className="w-full px-4 py-2 rounded bg-[#2a2b3e] border border-[#3a3b4e] focus:outline-none focus:border-pink-500"
+              value={formData.poster}
               onChange={(e) =>
                 setFormData({ ...formData, poster: e.target.value })
               }
