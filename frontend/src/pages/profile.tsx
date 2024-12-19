@@ -7,11 +7,10 @@ import {
   ExternalLink,
   Shield,
 } from "lucide-react";
-import { useWalletStore } from "@/providers/walletStoreProvider";
 import { getUserStats, UserStatsResponse } from "@/lib/backend-helper";
 import { sampleGames } from "@/lib/data";
-import { useMetaMask } from "@/providers/metamask-provider";
 import { generateRandomImageUrl, truncatedAddress } from "@/lib/utils";
+import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
 
 const profile = {
   name: "CryptoGamer",
@@ -25,9 +24,7 @@ const profile = {
 };
 
 const ProfilePage = () => {
-  const { connectedAccount } = useWalletStore((state) => state);
-  const { accountAddress: metamaskAddress } = useMetaMask((state) => state);
-  const [accountName, setAccountName] = useState("");
+  const { primaryWallet } = useDynamicContext();
 
   const [stats, setStats] = useState<UserStatsResponse | null>(null);
   const [loading, setLoading] = useState(true);
@@ -35,7 +32,7 @@ const ProfilePage = () => {
 
   useEffect(() => {
     async function fetchStats() {
-      const userAddr = metamaskAddress || connectedAccount?.address;
+      const userAddr = primaryWallet?.address;
 
       if (!userAddr) {
         setStats(null);
@@ -56,23 +53,7 @@ const ProfilePage = () => {
     }
 
     fetchStats();
-  }, [metamaskAddress, connectedAccount]);
-
-  useEffect(() => {
-    function getAccountName() {
-      if (metamaskAddress) return truncatedAddress(metamaskAddress);
-
-      if (connectedAccount) {
-        return (
-          connectedAccount?.name ?? truncatedAddress(connectedAccount.address)
-        );
-      }
-
-      return "Please connect wallet";
-    }
-
-    setAccountName(getAccountName());
-  }, [metamaskAddress, connectedAccount]);
+  }, [primaryWallet]);
 
   return (
     <div className="min-h-screen bg-gray-900 text-white">
@@ -84,9 +65,7 @@ const ProfilePage = () => {
             <div className="relative">
               <div className="w-24 h-24 rounded-full bg-gray-700 overflow-hidden">
                 <img
-                  src={generateRandomImageUrl(
-                    metamaskAddress ?? connectedAccount?.address
-                  )}
+                  src={generateRandomImageUrl(primaryWallet?.address)}
                   alt="Profile"
                   className="w-full h-full object-cover"
                 />
@@ -98,16 +77,19 @@ const ProfilePage = () => {
 
             {/* User Info */}
             <div className="flex-grow">
-              <h1 className="text-2xl font-bold">{accountName}</h1>
+              <h1 className="text-2xl font-bold">
+                {primaryWallet?.address
+                  ? truncatedAddress(primaryWallet.address)
+                  : "Please connect wallet"}
+              </h1>
+
               <div className="flex items-center gap-2 text-gray-400">
                 <span>
-                  {metamaskAddress && truncatedAddress(metamaskAddress)}
-                  {connectedAccount?.address &&
-                    truncatedAddress(connectedAccount?.address)}
-                  {!metamaskAddress &&
-                    !connectedAccount?.address &&
-                    "Please connect wallet"}
+                  {primaryWallet?.address
+                    ? truncatedAddress(primaryWallet.address)
+                    : "Please connect wallet"}
                 </span>
+
                 <ExternalLink className="w-4 h-4 cursor-pointer hover:text-white transition-colors" />
               </div>
             </div>

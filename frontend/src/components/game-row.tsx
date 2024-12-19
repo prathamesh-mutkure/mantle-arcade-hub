@@ -2,8 +2,7 @@ import React, { use, useRef, useState } from "react";
 import GameCard from "./game-card";
 import { useRouter } from "next/router";
 import { ChevronLeft, ChevronRight, Joystick } from "lucide-react";
-import { useWalletStore } from "@/providers/walletStoreProvider";
-import { useMetaMask } from "@/providers/metamask-provider";
+import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
 
 function GameRow({
   rowId,
@@ -15,8 +14,7 @@ function GameRow({
   games: Game[];
 }) {
   const router = useRouter();
-  const { connectedAccount } = useWalletStore((state) => state);
-  const { accountAddress: metamaskAddress } = useMetaMask((state) => state);
+  const { primaryWallet } = useDynamicContext();
 
   const carouselRef = useRef<HTMLDivElement | null>(null);
   const [showLeftButton, setShowLeftButton] = useState(false);
@@ -42,7 +40,7 @@ function GameRow({
   };
 
   const handlePlayGame = (item: Game) => {
-    const userAddr = metamaskAddress || connectedAccount?.address;
+    const userAddr = primaryWallet?.address;
 
     if (!userAddr) {
       alert("Please connect your wallet to play games.");

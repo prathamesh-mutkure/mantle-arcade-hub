@@ -5,11 +5,10 @@ import {
   attestUserGameScore,
   TUserGameScoreSchema,
 } from "@/lib/true-network-helper";
-import { useWalletStore } from "@/providers/walletStoreProvider";
 import { Maximize2, Minimize2 } from "lucide-react";
 import { calculateGamingActivity } from "@/lib/reputation-score-helper";
 import { storeAttestationInBackend } from "@/lib/backend-helper";
-import { useMetaMask } from "@/providers/metamask-provider";
+import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
 
 interface RufflePlayerProps {
   swfUrl: string;
@@ -42,9 +41,8 @@ const RufflePlayerComponent: React.FC<RufflePlayerProps> = ({
   onEnd,
   onError,
 }) => {
-  const { connectedAccount } = useWalletStore((state) => state);
-  const { accountAddress: metamaskAddress } = useMetaMask((state) => state);
   const addrRef = useRef<string | null>(null);
+  const { primaryWallet } = useDynamicContext();
 
   const containerRef = useRef<HTMLDivElement>(null);
   const playerRef = useRef<RufflePlayer | null>(null);
@@ -53,8 +51,8 @@ const RufflePlayerComponent: React.FC<RufflePlayerProps> = ({
   const [isFullscreen, setIsFullscreen] = useState(false);
 
   useEffect(() => {
-    addrRef.current = metamaskAddress ?? null;
-  }, [metamaskAddress]);
+    addrRef.current = primaryWallet?.address ?? null;
+  }, [primaryWallet]);
 
   const metricsRef = useRef<TGameMetrics>({
     startTime: null,
@@ -220,7 +218,7 @@ const RufflePlayerComponent: React.FC<RufflePlayerProps> = ({
   }
 
   async function sendMetricsToBackend(gameMetrics: TGameMetrics) {
-    const addressToAttest = addrRef.current || connectedAccount?.address;
+    const addressToAttest = addrRef.current || primaryWallet?.address;
 
     if (!addressToAttest) {
       console.log("No connected account, skipping metrics submission");

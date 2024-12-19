@@ -1,28 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import GameRow from "@/components/game-row";
 import useGameStore from "@/zustand/games-store";
-import { Link, Star } from "lucide-react";
+import { Star } from "lucide-react";
 import { useRouter } from "next/router";
-import { useWalletStore } from "@/providers/walletStoreProvider";
-import { useMetaMask } from "@/providers/metamask-provider";
 
 export default function Home() {
   const router = useRouter();
   const games = useGameStore((state) => state.games);
-
-  const { connectedAccount } = useWalletStore((state) => state);
-  const { accountAddress: metamaskAddress } = useMetaMask((state) => state);
-
-  const handlePlayGame = () => {
-    const userAddr = metamaskAddress || connectedAccount?.address;
-
-    if (!userAddr) {
-      alert("Please connect your wallet to play games.");
-      return;
-    }
-
-    router.push(`/game?id=6`);
-  };
 
   const categorizedGames = {
     featured: games.filter((game) => game.featured),
