@@ -5,9 +5,9 @@ export default function AdminPage() {
     {
       id: "1",
       name: "Flabby Physics",
-      poster: "/placeholder.jpg",
+      poster: "/games_images/flappy_physics.png",
       submitter: "0x1234...5678",
-      categories: ["Action", "Arcade"],
+      categories: ["Arcade"],
     },
     // Add more mock data as needed
   ]);
