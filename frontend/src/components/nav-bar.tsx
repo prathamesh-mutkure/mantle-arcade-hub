@@ -9,6 +9,7 @@ import {
   DynamicWidget,
   useDynamicContext,
 } from "@dynamic-labs/sdk-react-core";
+
 const PacmanSVG = () => (
   <svg
     width="40"

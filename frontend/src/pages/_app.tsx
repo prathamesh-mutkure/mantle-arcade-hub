@@ -1,5 +1,4 @@
 import "@/styles/globals.css";
-import Navbar from "@/components/nav-bar";
 import type { AppProps } from "next/app";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { WagmiProvider } from "wagmi";
@@ -9,6 +8,9 @@ import { EthereumWalletConnectors } from "@dynamic-labs/ethereum";
 import { DynamicWagmiConnector } from "@dynamic-labs/wagmi-connector";
 import { DYNAMIC_ENV_ID } from "@/lib/constants";
 import { wagmiConfig } from "@/configs/wagmi";
+import dynamic from "next/dynamic";
+
+const Navbar = dynamic(() => import("@/components/nav-bar"), { ssr: false });
 
 const queryClient = new QueryClient();
 
