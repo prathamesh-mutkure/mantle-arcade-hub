@@ -32,8 +32,6 @@ const config = createConfig({
 
 const queryClient = new QueryClient();
 
-const Header = dynamic(() => import("@/components/Header"), { ssr: false });
-
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <PolkadotWalletsContextProvider walletAggregator={walletAggregator}>
@@ -48,9 +46,6 @@ export default function App({ Component, pageProps }: AppProps) {
             <WagmiProvider config={config}>
               <QueryClientProvider client={queryClient}>
                 <DynamicWagmiConnector>
-                  {/* <DynamicWidget /> */}
-
-                  {/* <Header /> */}
                   <Navbar />
                   <Component {...pageProps} />
                   <GoogleAnalytics gaId="G-9SSE6ELV91" />
