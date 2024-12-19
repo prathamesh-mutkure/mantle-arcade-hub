@@ -1,4 +1,4 @@
-import "@/styles/globals.css";]
+import "@/styles/globals.css";
 import Navbar from "@/components/nav-bar";
 import type { AppProps } from "next/app";
 import { GoogleAnalytics } from "@next/third-parties/google";

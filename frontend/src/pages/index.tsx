@@ -164,7 +164,7 @@ export default function Home() {
         >
           @prathamesh_io
         </a>{" "}
-        on Polkadot with {" <3"}
+        on Mantle with {" <3"}
       </div>
     </main>
   );
